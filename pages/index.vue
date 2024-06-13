@@ -3,12 +3,12 @@
     <div class="char-wrapper">
       <img src="https://iili.io/Jy4RwiJ.png" alt="chibi-img"/>
       <div class="suit">
-        <img src="https://iili.io/Jy6nlCQ.png" alt="right-a" class="limb" />
-        <img src="https://iili.io/Jy6nG3P.png" alt="left-a" class="limb" />
+        <img src="https://iili.io/Jy6nlCQ.png" alt="right-a" class="right-a" />
+        <img src="https://iili.io/Jy6nG3P.png" alt="left-a" class="left-a" />
         <img src="https://iili.io/Jy4RjVa.png" alt="helmet" data-helmet />
         <img src="https://iili.io/Jy6Ybu2.png" alt="armor" class="armor" />
-        <img src="https://iili.io/Jy6n16B.png" alt="left-l" class="limb" />
-        <img src="https://iili.io/Jy6nV8F.png" alt="right-l" class="limb" />
+        <img src="https://iili.io/Jy6n16B.png" alt="left-l" class="left-l" />
+        <img src="https://iili.io/Jy6nV8F.png" alt="right-l" class="right-l" />
       </div>
       <div class="block"></div>
     </div>
@@ -19,10 +19,14 @@
 
 <script setup>
 function equip() {
-  document.querySelectorAll("img.limb").forEach(function (elem) {
-    elem.classList.add("play-animation");
-  });
-  document.querySelector(".armor").classList.add("play-animation2");
+  // document.querySelectorAll("img.limb").forEach(function (elem) {
+  //   elem.classList.add("equip");
+  // });
+  document.querySelector(".right-a").classList.add("equip-ra");
+  document.querySelector(".left-a").classList.add("equip-la");
+  document.querySelector(".right-l").classList.add("equip-rl");
+  document.querySelector(".left-l").classList.add("equip-ll");
+  document.querySelector(".armor").classList.add("armor-equip");
   document.querySelector("[data-helmet]").classList.add("helm-equip");
   document.querySelector(".block").classList.add("cover");
 }
@@ -124,14 +128,54 @@ img[alt="right-l"] {
 
 /* armor euip animation */
 
-@keyframes equip {
+@keyframes equip-ra {
   from {
     visibility: hidden;
-    transform: translatey(400px);
+    transform: translatez(900px);
   }
   to {
     visibility: visible;
-    transform: translatey(0px);
+    transform: translatez(0px);
+  }
+}
+@keyframes equip-rl {
+  from {
+    visibility: hidden;
+    transform: translatez(900px);
+  }
+  to {
+    visibility: visible;
+    transform: translatez(0px);
+  }
+}
+@keyframes equip-la {
+  from {
+    visibility: hidden;
+    transform: translatez(900px);
+  }
+  to {
+    visibility: visible;
+    transform: translatez(0px);
+  }
+}
+@keyframes equip-ll {
+  from {
+    visibility: hidden;
+    transform: translatez(900px);
+  }
+  to {
+    visibility: visible;
+    transform: translatez(0px);
+  }
+}
+@keyframes equip-armor {
+  from {
+    visibility: hidden;
+    transform: translatez(900px);
+  }
+  to {
+    visibility: visible;
+    transform: translatez(0px);
   }
 }
 @keyframes helm-equip {
@@ -155,27 +199,37 @@ img[alt="right-l"] {
 .equip-suit {
   z-index: 6;
 }
-.play-animation {
-  animation: equip 1s ease-in forwards;
+.equip-la {
+  animation: equip-la 0.8s ease-in forwards;
 }
-.play-animation2 {
-  animation: equip 0.5s ease-in forwards;
+.equip-ll {
+  animation: equip-ll 0.8s 0.3s ease-in forwards;
+}
+.armor-equip {
+  animation: equip-armor 0.5s 0.5s ease-in forwards;
+}
+.equip-ra {
+  animation: equip-ra 0.8s 0.6s ease-in forwards;
+}
+.equip-rl {
+  animation: equip-rl 0.8s 0.7s ease-in forwards;
 }
 .helm-equip {
-  animation: helm-equip 1s 1s 1 ease-in forwards;
+  animation: helm-equip 0.8s 1.2s 1 ease-in forwards;
 }
 
 /* blocking bottom half of body to only display head */
 .block{
+  /* border: 3px solid red; */
   position: relative;
-  top: 64%;
+  top: 65%;
   width: 100%;
-  height: 36%;
+  height: 34%;
   background: transparent;
   z-index: 0;
 }
 .cover{
-  animation: cover 0.5s 0.8s forwards
+  animation: cover 0.5s 1.2s forwards
 }
 @keyframes cover {
   90%{
