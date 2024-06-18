@@ -1,5 +1,6 @@
 <template>
   <div id="landing">
+  <div class="Animation">
     <div class="char-wrapper">
       <img src="https://iili.io/Jy4RwiJ.png" alt="chibi-img"/>
       <div class="suit">
@@ -14,14 +15,13 @@
     </div>
     <button @click="equip()" class="anim" >equip</button>
   </div>
+  </div>
+
   <div id="about"></div>
 </template>
 
 <script setup>
 function equip() {
-  // document.querySelectorAll("img.limb").forEach(function (elem) {
-  //   elem.classList.add("equip");
-  // });
   document.querySelector(".right-a").classList.add("equip-ra");
   document.querySelector(".left-a").classList.add("equip-la");
   document.querySelector(".right-l").classList.add("equip-rl");
@@ -37,8 +37,14 @@ function equip() {
   min-height: 100vh;
   width: 100vw;
   display: flex;
+  justify-content: center;
+  align-items: center;
 }
 
+.Animation{
+  border: 1px solid blue;
+  display: flex;
+}
 .char-wrapper {
   position: relative;
   border: 1px solid red;
@@ -47,14 +53,24 @@ function equip() {
   justify-content: center;
   align-items: center;
   z-index: 1;
-}
-
-.anim{
-  height: 30px;
-  width: 80px;
-  border-radius: 7px;
+  }
+  
+  .anim{
+  height: 50px;
+  width: 50px;
+  border-radius: 50%;
   border: none;
-  box-shadow: 0px 0px 3px 3px #8bd3fb;
+  box-shadow: 0px 0px 5px 1px #aa0505;
+  transition: 0.5s;
+  /* color: #67c7eb; */
+  color: #aa0505;
+  font-family: "Share Tech Mono", monospace;
+  font-weight: bold;
+  font-style: normal;
+  background: url("https://iili.io/d9ppT67.png") center no-repeat;
+  background-size: 201%;
+  background-position: -22.6px -3.3px;
+  animation: mini-pulse 4s infinite ease;
 }
 
 /* working on the suit placement */
@@ -126,7 +142,7 @@ img[alt="right-l"] {
   visibility: hidden;
 }
 
-/* armor euip animation */
+/* armor equip animation */
 
 @keyframes equip-ra {
   from {
@@ -219,6 +235,7 @@ img[alt="right-l"] {
 }
 
 /* blocking bottom half of body to only display head */
+
 .block{
   /* border: 3px solid red; */
   position: relative;
@@ -239,4 +256,14 @@ img[alt="right-l"] {
     background: white;
   }
 }
+
+/* Glowing Animations */
+
+@keyframes mini-pulse {
+  50%{
+    border: none;
+    box-shadow: 0px 0px 10px 1px #aa0505;
+  }
+}
+
 </style>
