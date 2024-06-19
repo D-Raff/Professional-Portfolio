@@ -1,23 +1,34 @@
 <template>
   <div id="landing">
-  <div class="Animation">
-    <div class="char-wrapper">
-      <img src="https://iili.io/Jy4RwiJ.png" alt="chibi-img"/>
-      <div class="suit">
-        <img src="https://iili.io/Jy6nlCQ.png" alt="right-a" class="right-a" />
-        <img src="https://iili.io/Jy6nG3P.png" alt="left-a" class="left-a" />
-        <img src="https://iili.io/Jy4RjVa.png" alt="helmet" data-helmet />
-        <img src="https://iili.io/Jy6Ybu2.png" alt="armor" class="armor" />
-        <img src="https://iili.io/Jy6n16B.png" alt="left-l" class="left-l" />
-        <img src="https://iili.io/Jy6nV8F.png" alt="right-l" class="right-l" />
+    <div class="Animation">
+      <div class="char-wrapper">
+        <img src="https://iili.io/Jy4RwiJ.png" alt="chibi-img" />
+        <div class="suit">
+          <img
+            src="https://iili.io/Jy6nlCQ.png"
+            alt="right-a"
+            class="right-a"
+          />
+          <img src="https://iili.io/Jy6nG3P.png" alt="left-a" class="left-a" />
+          <img src="https://iili.io/Jy4RjVa.png" alt="helmet" data-helmet />
+          <img src="https://iili.io/Jy6Ybu2.png" alt="armor" class="armor" />
+          <img src="https://iili.io/Jy6n16B.png" alt="left-l" class="left-l" />
+          <img
+            src="https://iili.io/Jy6nV8F.png"
+            alt="right-l"
+            class="right-l"
+          />
+        </div>
+        <div class="block"></div>
       </div>
-      <div class="block"></div>
+      <div class="butt-back">
+        <div class="spin"></div>
+        <button @click="equip()" class="anim">
+          equip
+        </button>
+      </div>
     </div>
-    <button @click="equip()" class="anim" >equip</button>
   </div>
-  </div>
-
-  <div id="about"></div>
 </template>
 
 <script setup>
@@ -29,6 +40,8 @@ function equip() {
   document.querySelector(".armor").classList.add("armor-equip");
   document.querySelector("[data-helmet]").classList.add("helm-equip");
   document.querySelector(".block").classList.add("cover");
+  document.querySelector(".anim").classList.add("arc");
+  document.querySelector(".spin").classList.add("flux");
 }
 </script>
 
@@ -39,9 +52,10 @@ function equip() {
   display: flex;
   justify-content: center;
   align-items: center;
+  background: #030303;
 }
 
-.Animation{
+.Animation {
   border: 1px solid blue;
   display: flex;
 }
@@ -53,24 +67,54 @@ function equip() {
   justify-content: center;
   align-items: center;
   z-index: 1;
-  }
-  
-  .anim{
+}
+
+.anim {
   height: 50px;
   width: 50px;
   border-radius: 50%;
   border: none;
   box-shadow: 0px 0px 5px 1px #aa0505;
   transition: 0.5s;
-  /* color: #67c7eb; */
+  background-color: #67c7eb;
   color: #aa0505;
   font-family: "Share Tech Mono", monospace;
   font-weight: bold;
   font-style: normal;
   background: url("https://iili.io/d9ppT67.png") center no-repeat;
+  background-size: 1000%;
+  background-position: -210.3px -113px;
+  animation: mini-pulse 4s infinite ease;
+  position: relative;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.arc {
   background-size: 201%;
   background-position: -22.6px -3.3px;
-  animation: mini-pulse 4s infinite ease;
+  box-shadow: none;
+  animation: none;
+  font-size: 0px;
+}
+.spin {
+  position: absolute;
+  height: 49px;
+  width: 49px;
+  border-radius: 50%;
+}
+.flux {
+  box-shadow: 0px 0.3px 4px 2px #67c7eb;
+  animation: flux 0.5s linear infinite;
+  background-color: #67c7eb;
+}
+.butt-back{
+  background-color: #67c7eb;
+  height: 49px;
+  width: 49px;
+  border-radius: 50%;
+  display: flex;
+  justify-content: center;
 }
 
 /* working on the suit placement */
@@ -236,7 +280,7 @@ img[alt="right-l"] {
 
 /* blocking bottom half of body to only display head */
 
-.block{
+.block {
   /* border: 3px solid red; */
   position: relative;
   top: 65%;
@@ -245,14 +289,14 @@ img[alt="right-l"] {
   background: transparent;
   z-index: 0;
 }
-.cover{
-  animation: cover 0.5s 1.2s forwards
+.cover {
+  animation: cover 0.5s 1.2s forwards;
 }
 @keyframes cover {
-  90%{
+  90% {
     background: white;
   }
-  100%{
+  100% {
     background: white;
   }
 }
@@ -260,10 +304,20 @@ img[alt="right-l"] {
 /* Glowing Animations */
 
 @keyframes mini-pulse {
-  50%{
+  50% {
     border: none;
     box-shadow: 0px 0px 10px 1px #aa0505;
   }
 }
-
+@keyframes mini-pulse2 {
+  50% {
+    border: none;
+    box-shadow: 0px 0px 10px 1px #67c7eb;
+  }
+}
+@keyframes flux {
+  to {
+    rotate: 360deg;
+  }
+}
 </style>
