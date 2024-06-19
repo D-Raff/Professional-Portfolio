@@ -1,5 +1,6 @@
 <template>
   <div id="landing">
+    <div class="background"></div>
     <div class="Animation">
       <div class="char-wrapper">
         <img src="https://iili.io/Jy4RwiJ.png" alt="chibi-img" />
@@ -23,9 +24,7 @@
       </div>
       <div class="butt-back">
         <div class="spin"></div>
-        <button @click="equip()" class="anim">
-          equip
-        </button>
+        <button @click="equip()" class="anim">equip</button>
       </div>
     </div>
   </div>
@@ -50,9 +49,19 @@ function equip() {
   min-height: 100vh;
   width: 100vw;
   display: flex;
+  position: relative;
   justify-content: center;
   align-items: center;
+  overflow: hidden;
+}
+.background {
+  position: absolute;
   background: #030303;
+  width: 0%;
+  height: 0%;
+}
+.expand{
+  animation: dark-mode
 }
 
 .Animation {
@@ -61,7 +70,6 @@ function equip() {
 }
 .char-wrapper {
   position: relative;
-  border: 1px solid red;
   width: 300px;
   height: 200px;
   justify-content: center;
@@ -83,7 +91,7 @@ function equip() {
   font-style: normal;
   background: url("https://iili.io/d9ppT67.png") center no-repeat;
   background-size: 1000%;
-  background-position: -210.3px -113px;
+  background-position: -206.3px -111.3px;
   animation: mini-pulse 4s infinite ease;
   position: relative;
   display: flex;
@@ -105,10 +113,10 @@ function equip() {
 }
 .flux {
   box-shadow: 0px 0.3px 4px 2px #67c7eb;
-  animation: flux 0.5s linear infinite;
+  animation: flux 0.15s linear infinite;
   background-color: #67c7eb;
 }
-.butt-back{
+.butt-back {
   background-color: #67c7eb;
   height: 49px;
   width: 49px;
@@ -294,10 +302,10 @@ img[alt="right-l"] {
 }
 @keyframes cover {
   90% {
-    background: white;
+    background: #030303;
   }
   100% {
-    background: white;
+    background: #030303;
   }
 }
 
@@ -306,18 +314,15 @@ img[alt="right-l"] {
 @keyframes mini-pulse {
   50% {
     border: none;
-    box-shadow: 0px 0px 10px 1px #aa0505;
-  }
-}
-@keyframes mini-pulse2 {
-  50% {
-    border: none;
-    box-shadow: 0px 0px 10px 1px #67c7eb;
+    box-shadow: 0px 0px 10px 2px #aa0505;
   }
 }
 @keyframes flux {
   to {
     rotate: 360deg;
   }
+}
+@keyframes dark-mode {
+  
 }
 </style>
