@@ -322,11 +322,19 @@ img[alt="right-l"] {
   }
 }
 @keyframes dark-mode {
-  from {
+  0% {
     width: 0%;
-    height: 0%;
+    height: 5%;
   }
-  to {
+  20%{
+    width: 100%;
+    height: 2%
+  }
+  30%{
+    height: 5%
+    
+  }
+  100% {
     width: 100%;
     height: 100%;
   }
