@@ -41,6 +41,7 @@ function equip() {
   document.querySelector(".block").classList.add("cover");
   document.querySelector(".anim").classList.add("arc");
   document.querySelector(".spin").classList.add("flux");
+  document.querySelector(".background").classList.add("expand");
 }
 </script>
 
@@ -57,11 +58,9 @@ function equip() {
 .background {
   position: absolute;
   background: #030303;
-  width: 0%;
-  height: 0%;
 }
-.expand{
-  animation: dark-mode
+.expand {
+  animation: dark-mode 2s forwards linear;
 }
 
 .Animation {
@@ -323,6 +322,13 @@ img[alt="right-l"] {
   }
 }
 @keyframes dark-mode {
-  
+  from {
+    width: 0%;
+    height: 0%;
+  }
+  to {
+    width: 100%;
+    height: 100%;
+  }
 }
 </style>
