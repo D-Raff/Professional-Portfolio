@@ -22,10 +22,16 @@
         </div>
         <div class="block"></div>
       </div>
-      <div class="butt-back">
+      <div class="btn-back">
         <div class="spin"></div>
         <button @click="equip()" class="anim">equip</button>
       </div>
+    </div>
+    <div class="welcome">
+      <h1 class="head">Hello,</h1>
+      <p class="click"><span class="arrow"><-</span> Click to explore</p>
+      <h2 class="name">I'm Damon,</h2>
+      <p class="title">Aspiring Web Developer, Artist, Software Developer.</p>
     </div>
   </div>
 </template>
@@ -42,12 +48,59 @@ function equip() {
   document.querySelector(".anim").classList.add("arc");
   document.querySelector(".spin").classList.add("flux");
   document.querySelector(".background").classList.add("expand");
+  document.querySelector(".head").classList.add("lift-anim");
+  document.querySelector(".welcome").classList.add("shrink");
 }
 </script>
 
 <style scoped>
+/* font colour and style settings */
+.welcome {
+  z-index: 0;
+  font-family: lora;
+  display: flex;
+  flex-direction: column;
+  position: relative;
+  top: 5rem;
+}
+.shrink{
+  animation: shrink 1s linear forwards;
+}
+.head {
+  color: red;
+  position: relative;
+  font-size: 16rem;
+}
+.lift-anim {
+  animation: lift 1s linear forwards;
+}
+:is(.title, .name) {
+  color: white;
+}
+.name {
+  font-size: 6rem;
+  position: relative;
+  bottom: 15px;
+}
+.title {
+  font-size: 1rem;
+}
+.title > span {
+  color: red;
+}
+.click {
+  margin: 0;
+  padding: 0;
+  font-weight: 700;
+}
+.arrow {
+  position: relative;
+  animation: point 1s infinite;
+}
+
+/* main css */
 #landing {
-  min-height: 100vh;
+  height: 100vh;
   width: 100vw;
   display: flex;
   position: relative;
@@ -64,12 +117,13 @@ function equip() {
 }
 
 .Animation {
-  border: 1px solid blue;
+  /* border: 1px solid blue; */
   display: flex;
+  margin-right: 3em;
 }
 .char-wrapper {
   position: relative;
-  width: 300px;
+  width: 250px;
   height: 200px;
   justify-content: center;
   align-items: center;
@@ -91,7 +145,7 @@ function equip() {
   background: url("https://iili.io/d9ppT67.png") center no-repeat;
   background-size: 1000%;
   background-position: -206.3px -111.3px;
-  animation: mini-pulse 4s infinite ease;
+  animation: mini-pulse 3s infinite ease;
   position: relative;
   display: flex;
   justify-content: center;
@@ -115,13 +169,16 @@ function equip() {
   animation: flux 0.15s linear infinite;
   background-color: #67c7eb;
 }
-.butt-back {
+.btn-back {
   background-color: #67c7eb;
   height: 49px;
   width: 49px;
   border-radius: 50%;
   display: flex;
   justify-content: center;
+  z-index: 1;
+  position: relative;
+  top: 15.6rem;
 }
 
 /* working on the suit placement */
@@ -288,16 +345,16 @@ img[alt="right-l"] {
 /* blocking bottom half of body to only display head */
 
 .block {
-  /* border: 3px solid red; */
   position: relative;
+  left: 29%;
   top: 65%;
-  width: 100%;
+  width: 40%;
   height: 34%;
   background: transparent;
   z-index: 0;
 }
 .cover {
-  animation: cover 0.5s 1.2s forwards;
+  animation: cover 0.5s 1.4s forwards;
 }
 @keyframes cover {
   90% {
@@ -313,7 +370,7 @@ img[alt="right-l"] {
 @keyframes mini-pulse {
   50% {
     border: none;
-    box-shadow: 0px 0px 10px 2px #aa0505;
+    box-shadow: 0px 0px 10px 6px #aa0505;
   }
 }
 @keyframes flux {
@@ -324,19 +381,38 @@ img[alt="right-l"] {
 @keyframes dark-mode {
   0% {
     width: 0%;
-    height: 5%;
+    height: 1%;
   }
-  20%{
+  20% {
     width: 100%;
-    height: 2%
-  }
-  30%{
-    height: 5%
-    
+    height: 1%;
   }
   100% {
     width: 100%;
     height: 100%;
+  }
+}
+@keyframes point {
+  0% {
+    right: 0;
+  }
+  80% {
+    right: 40px;
+  }
+  100% {
+    right: 0;
+  }
+}
+
+/* lift animation for words */
+@keyframes lift {
+  to{
+    font-size: 6rem;
+  }
+}
+@keyframes shrink {
+  to{
+    top: 1em;
   }
 }
 </style>
