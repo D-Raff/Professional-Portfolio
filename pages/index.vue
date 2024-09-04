@@ -1,42 +1,58 @@
 <template>
-  <div id="landing">
-    <div class="background"></div>
-    <div class="Animation">
-      <div class="char-wrapper">
-        <img src="https://iili.io/Jy4RwiJ.png" alt="chibi-img" />
-        <div class="suit">
-          <img
-            src="https://iili.io/Jy6nlCQ.png"
-            alt="right-a"
-            class="right-a"
-          />
-          <img src="https://iili.io/Jy6nG3P.png" alt="left-a" class="left-a" />
-          <img src="https://iili.io/Jy4RjVa.png" alt="helmet" data-helmet />
-          <img src="https://iili.io/Jy6Ybu2.png" alt="armor" class="armor" />
-          <img src="https://iili.io/Jy6n16B.png" alt="left-l" class="left-l" />
-          <img
-            src="https://iili.io/Jy6nV8F.png"
-            alt="right-l"
-            class="right-l"
-          />
+  <div class="Home">
+    <div id="landing" class="landing">
+      <div class="background"></div>
+      <div class="Animation">
+        <div class="char-wrapper">
+          <img src="https://iili.io/Jy4RwiJ.png" alt="chibi-img" />
+          <div class="suit">
+            <img
+              src="https://iili.io/Jy6nlCQ.png"
+              alt="right-a"
+              class="right-a"
+            />
+            <img
+              src="https://iili.io/Jy6nG3P.png"
+              alt="left-a"
+              class="left-a"
+            />
+            <img src="https://iili.io/Jy4RjVa.png" alt="helmet" data-helmet />
+            <img src="https://iili.io/Jy6Ybu2.png" alt="armor" class="armor" />
+            <img
+              src="https://iili.io/Jy6n16B.png"
+              alt="left-l"
+              class="left-l"
+            />
+            <img
+              src="https://iili.io/Jy6nV8F.png"
+              alt="right-l"
+              class="right-l"
+            />
+          </div>
+          <div class="block"></div>
         </div>
-        <div class="block"></div>
+        <div class="activate">
+          <div class="btn-back">
+            <div class="spin"></div>
+            <button @click="equip()" class="anim">equip</button>
+          </div>
+        </div>
       </div>
-      <div class="btn-back">
-        <div class="spin"></div>
-        <button @click="equip()" class="anim">equip</button>
+      <div class="welcome">
+        <h1 class="head">Hello,</h1>
+        <h2 class="name">I'm Damon,</h2>
+        <p class="title">Aspiring Web Developer, Artist, Software Developer.</p>
       </div>
     </div>
-    <div class="welcome">
-      <h1 class="head">Hello,</h1>
-      <p class="click"><span class="arrow"><-</span> Click to explore</p>
-      <h2 class="name">I'm Damon,</h2>
-      <p class="title">Aspiring Web Developer, Artist, Software Developer.</p>
+    <div id="Main">
+      <h1>Part 2</h1>
     </div>
   </div>
 </template>
 
 <script setup>
+// Equip animation
+
 function equip() {
   document.querySelector(".right-a").classList.add("equip-ra");
   document.querySelector(".left-a").classList.add("equip-la");
@@ -50,10 +66,40 @@ function equip() {
   document.querySelector(".background").classList.add("expand");
   document.querySelector(".head").classList.add("lift-anim");
   document.querySelector(".welcome").classList.add("shrink");
+  document.querySelector(".Home").classList.add("scroll");
+  setTimeout(() => {
+    navigateTo("./main");
+  }, 2600);
 }
+
+onMounted(() => {
+  useGsap.from(".landing", {
+    opacity: 0,
+    duration: 1,
+  });
+  useGsap.from(".Animation", {
+    x: 500,
+    duration: 1,
+    delay: 0.5,
+  });
+  useGsap.from(".activate", {
+    x: 200,
+    duration: 1,
+    delay: 0.8,
+  });
+});
 </script>
 
 <style scoped>
+.Home {
+  overflow: hidden;
+}
+.scroll {
+  overflow-y: visible !important;
+}
+#Main {
+  background: #030303;
+}
 /* font colour and style settings */
 .welcome {
   z-index: 0;
@@ -61,10 +107,18 @@ function equip() {
   display: flex;
   flex-direction: column;
   position: relative;
-  top: 5rem;
+  top: 4.6rem;
+  background: #ffe3e3;
 }
-.shrink{
+.shrink {
   animation: shrink 1s linear forwards;
+  background: transparent;
+}
+.activate {
+  display: flex;
+  align-self: flex-start;
+  left: 20px;
+  z-index: 2;
 }
 .head {
   color: red;
@@ -75,7 +129,7 @@ function equip() {
   animation: lift 1s linear forwards;
 }
 :is(.title, .name) {
-  color: white;
+  color: #ffe3e3;
 }
 .name {
   font-size: 6rem;
@@ -88,10 +142,13 @@ function equip() {
 .title > span {
   color: red;
 }
-.click {
+.disappear {
   margin: 0;
   padding: 0;
   font-weight: 700;
+  color: #030303;
+  display: flex;
+  overflow: hidden;
 }
 .arrow {
   position: relative;
@@ -100,13 +157,14 @@ function equip() {
 
 /* main css */
 #landing {
-  height: 100vh;
+  min-height: 100vh;
   width: 100vw;
   display: flex;
   position: relative;
   justify-content: center;
   align-items: center;
   overflow: hidden;
+  background: #ffe3e3;
 }
 .background {
   position: absolute;
@@ -125,26 +183,23 @@ function equip() {
   position: relative;
   width: 250px;
   height: 200px;
-  justify-content: center;
-  align-items: center;
   z-index: 1;
 }
 
 .anim {
-  height: 50px;
+  height: 30px;
   width: 50px;
-  border-radius: 50%;
+  border-radius: 10px;
   border: none;
-  box-shadow: 0px 0px 5px 1px #aa0505;
+  /* box-shadow: 0px 0px 5px 1px #aa0505; */
   transition: 0.5s;
-  background-color: #67c7eb;
+  /* background-color: #67c7eb; */
   color: #aa0505;
   font-family: "Share Tech Mono", monospace;
   font-weight: bold;
   font-style: normal;
-  background: url("https://iili.io/d9ppT67.png") center no-repeat;
-  background-size: 1000%;
-  background-position: -206.3px -111.3px;
+  background-size: 1100%;
+  background-position: -229.3px -125px;
   animation: mini-pulse 3s infinite ease;
   position: relative;
   display: flex;
@@ -152,25 +207,21 @@ function equip() {
   align-items: center;
 }
 .arc {
-  background-size: 201%;
-  background-position: -22.6px -3.3px;
-  box-shadow: none;
-  animation: none;
-  font-size: 0px;
+  animation: arc-reactor 2s forwards;
 }
 .spin {
   position: absolute;
-  height: 49px;
+  height: 30px;
   width: 49px;
   border-radius: 50%;
+  box-shadow: 0px 0.5px 4px 2px #67c7eb;
 }
 .flux {
-  box-shadow: 0px 0.3px 4px 2px #67c7eb;
+  height: 49px;
+  width: 49px;
   animation: flux 0.15s linear infinite;
-  background-color: #67c7eb;
 }
 .btn-back {
-  background-color: #67c7eb;
   height: 49px;
   width: 49px;
   border-radius: 50%;
@@ -178,7 +229,6 @@ function equip() {
   justify-content: center;
   z-index: 1;
   position: relative;
-  top: 15.6rem;
 }
 
 /* working on the suit placement */
@@ -403,15 +453,28 @@ img[alt="right-l"] {
     right: 0;
   }
 }
+@keyframes arc-reactor {
+  to {
+    background: url("https://iili.io/d9ppT67.png") center no-repeat #67c7eb;
+    background-size: 208%;
+    background-position: -23.9px -3.8px;
+    box-shadow: none;
+    animation: none;
+    font-size: 0px;
+    height: 50px;
+    width: 50px;
+    border-radius: 50%;
+  }
+}
 
 /* lift animation for words */
 @keyframes lift {
-  to{
+  to {
     font-size: 6rem;
   }
 }
 @keyframes shrink {
-  to{
+  to {
     top: 1em;
   }
 }
