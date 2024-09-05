@@ -1,51 +1,81 @@
 <template>
-  <div class="Home">
-    <div id="landing" class="landing">
-      <div class="background"></div>
-      <div class="Animation">
-        <div class="char-wrapper">
-          <img src="https://iili.io/Jy4RwiJ.png" alt="chibi-img" />
-          <div class="suit">
-            <img
-              src="https://iili.io/Jy6nlCQ.png"
-              alt="right-a"
-              class="right-a"
-            />
-            <img
-              src="https://iili.io/Jy6nG3P.png"
-              alt="left-a"
-              class="left-a"
-            />
-            <img src="https://iili.io/Jy4RjVa.png" alt="helmet" data-helmet />
-            <img src="https://iili.io/Jy6Ybu2.png" alt="armor" class="armor" />
-            <img
-              src="https://iili.io/Jy6n16B.png"
-              alt="left-l"
-              class="left-l"
-            />
-            <img
-              src="https://iili.io/Jy6nV8F.png"
-              alt="right-l"
-              class="right-l"
-            />
+  <div id="content">
+    <div class="Home">
+      <div id="landing" class="landing">
+        <div class="background"></div>
+        <div class="Animation">
+          <div class="char-wrapper">
+            <img src="https://iili.io/Jy4RwiJ.png" alt="chibi-img" />
+            <div class="suit">
+              <img
+                src="https://iili.io/Jy6nlCQ.png"
+                alt="right-a"
+                class="right-a"
+              />
+              <img
+                src="https://iili.io/Jy6nG3P.png"
+                alt="left-a"
+                class="left-a"
+              />
+              <img src="https://iili.io/Jy4RjVa.png" alt="helmet" data-helmet />
+              <img
+                src="https://iili.io/Jy6Ybu2.png"
+                alt="armor"
+                class="armor"
+                loading="eager"
+              />
+              <img
+                src="https://iili.io/Jy6n16B.png"
+                alt="left-l"
+                class="left-l"
+              />
+              <img
+                src="https://iili.io/Jy6nV8F.png"
+                alt="right-l"
+                class="right-l"
+              />
+            </div>
+            <div class="block"></div>
           </div>
-          <div class="block"></div>
-        </div>
-        <div class="activate">
-          <div class="btn-back">
-            <div class="spin"></div>
-            <button @click="equip()" class="anim">equip</button>
+          <div class="activate">
+            <div class="btn-back">
+              <div class="spin"></div>
+              <button @click="equip()" class="anim">equip</button>
+            </div>
           </div>
         </div>
-      </div>
-      <div class="welcome">
-        <h1 class="head">Hello,</h1>
-        <h2 class="name">I'm Damon,</h2>
-        <p class="title">Aspiring Web Developer, Artist, Software Developer.</p>
+        <div class="welcome">
+          <h1 class="head">Hello,</h1>
+          <h2 class="name">I'm Damon,</h2>
+          <p class="title">
+            Aspiring Web Developer, Artist, Software Developer.
+          </p>
+        </div>
       </div>
     </div>
     <div id="Main">
-      <h1>Part 2</h1>
+      <div class="split">
+        <div class="open"></div>
+        <div class="open2"></div>
+      </div>
+      <div class="content">
+        <div id="About" class="container d-flex pt-5">
+          <img src="https://iili.io/JhDRlWB.png" alt="profile" />
+          <section class="about-inf">
+            <h2>Damon Raffels</h2>
+            <div class="underline"></div>
+            <p>
+              I am a results-driven developer with a diverse skill set spanning mechanics and fullstack web development.
+            </p>
+            <p>
+              Completed a Certificate in Fullstack Web Development at Life Choices Coding Academy, building proficiency in HTML, CSS, Bootstrap, JavaScript, Vue.js, Node.js, MySQL and various development tools, complemented with badges in Scrum Principles, Cisco Networking Essentials, Cisco Python Essentials and others.
+            </p>
+            <p>
+              Previous roles provided hands-on experience in engine rebuilding, overhauling, inventory management, and cultivated strong soft skills in customer relations, conflict resolution, and communication.
+            </p>
+          </section>
+        </div>
+      </div>
     </div>
   </div>
 </template>
@@ -67,9 +97,17 @@ function equip() {
   document.querySelector(".head").classList.add("lift-anim");
   document.querySelector(".welcome").classList.add("shrink");
   document.querySelector(".Home").classList.add("scroll");
+  useGsap.to("#Main", {
+    duration: 1,
+    y: 0,
+    delay: 2.4,
+  });
   setTimeout(() => {
-    navigateTo("./main");
-  }, 2600);
+    document.querySelector("#Main").classList.add("display");
+  }, "2200");
+  setTimeout(() => {
+    overlay();
+  }, "2800");
 }
 
 onMounted(() => {
@@ -88,18 +126,46 @@ onMounted(() => {
     delay: 0.8,
   });
 });
+
+function overlay() {
+  useGsap.to(".open", {
+    duration: 0.5,
+    x: -10,
+    delay: 0.6,
+  });
+  useGsap.to(".open", {
+    duration: 1,
+    x: -700,
+    delay: 1.2,
+  });
+  useGsap.to(".open2", {
+    duration: 0.5,
+    x: 10,
+    delay: 0.6,
+  });
+  useGsap.to(".open2", {
+    duration: 1,
+    x: 700,
+    delay: 1.2,
+  });
+}
 </script>
 
 <style scoped>
+#content {
+  display: flex;
+  width: 100vw;
+  overflow-x: hidden;
+}
 .Home {
   overflow: hidden;
+  min-height: 100vh;
+  width: 100vw;
 }
 .scroll {
   overflow-y: visible !important;
 }
-#Main {
-  background: #030303;
-}
+
 /* font colour and style settings */
 .welcome {
   z-index: 0;
@@ -478,4 +544,67 @@ img[alt="right-l"] {
     top: 1em;
   }
 }
+
+/* ============ About Section Styling ============ */
+
+#Main {
+  min-height: 100vh;
+  width: 100vw;
+  background: #030303;
+  overflow-x: hidden;
+  position: absolute;
+  transform: translateY(100vh);
+  display: none;
+}
+.display {
+  display: flex !important;
+}
+.split {
+  display: flex;
+  position: absolute;
+}
+.content {
+  height: 100%;
+  width: 100%;
+  color: #67c7eb;
+  display: flex;
+  justify-content: center;
+  font-family: "Electrolize", sans-serif;
+}
+.open {
+  height: 100vh;
+  width: 50vw;
+  border-right: 2px solid #67c7eb;
+  box-shadow: inset -1px 0px 5px 0px #67c7eb;
+}
+.open2 {
+  height: 100vh;
+  width: 50vw;
+  right: 0px;
+  border-left: 2px solid #67c7eb;
+  box-shadow: inset 1px 0px 5px 0px #67c7eb;
+}
+:is(.open, .open2) {
+  background-color: #030303;
+  position: relative;
+}
+
+img[alt="profile"] {
+  height: 400px;
+}
+
+#About{
+  align-items: center;
+}
+
+h2{
+  margin-bottom: 0;
+}
+
+.underline{
+  border: 2px solid red;
+  width: 25.4%;
+  margin-bottom: 10px;
+}
+
 </style>
