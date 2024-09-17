@@ -60,19 +60,22 @@
       </div>
       <div class="content">
         <div id="About" class="container d-flex pt-5">
+          <div class="square"></div>
+          <div class="square2"></div>
           <img src="https://iili.io/JhDRlWB.png" alt="profile" />
           <section class="about-inf">
             <h2>Damon Raffels</h2>
             <div class="underline"></div>
             <p>
-              I am a results-driven developer with a diverse skill set spanning mechanics and fullstack web development.
+              A versatile developer skilled in both mechanics and fullstack web
+              development, with a certificate from Life Choices Coding Academy.
+              Proficient in HTML, CSS, Bootstrap, JavaScript, Vue.js, Node.js,
+              and MySQL, complemented by badges in Scrum, Cisco Networking, and
+              Python Essentials. Past roles provided experience in engine
+              rebuilding, overhauling, and inventory management, along with
+              strong communication and conflict resolution skills.
             </p>
-            <p>
-              Completed a Certificate in Fullstack Web Development at Life Choices Coding Academy, building proficiency in HTML, CSS, Bootstrap, JavaScript, Vue.js, Node.js, MySQL and various development tools, complemented with badges in Scrum Principles, Cisco Networking Essentials, Cisco Python Essentials and others.
-            </p>
-            <p>
-              Previous roles provided hands-on experience in engine rebuilding, overhauling, inventory management, and cultivated strong soft skills in customer relations, conflict resolution, and communication.
-            </p>
+            <p>Hobbies include hiking, gaming, sketching, and coding.</p>
           </section>
         </div>
       </div>
@@ -554,7 +557,8 @@ img[alt="right-l"] {
   overflow-x: hidden;
   position: absolute;
   transform: translateY(100vh);
-  display: none;
+  /* display: none; */
+  display: flex;
 }
 .display {
   display: flex !important;
@@ -571,7 +575,7 @@ img[alt="right-l"] {
   justify-content: center;
   font-family: "Electrolize", sans-serif;
 }
-.open {
+/* .open {
   height: 100vh;
   width: 50vw;
   border-right: 2px solid #67c7eb;
@@ -587,24 +591,43 @@ img[alt="right-l"] {
 :is(.open, .open2) {
   background-color: #030303;
   position: relative;
-}
+} */
 
 img[alt="profile"] {
   height: 400px;
 }
 
-#About{
+#About {
   align-items: center;
+  min-height: 100vh;
 }
 
-h2{
+h2 {
   margin-bottom: 0;
 }
 
-.underline{
+.underline {
   border: 2px solid red;
   width: 25.4%;
-  margin-bottom: 10px;
+  margin-bottom: 20px;
 }
 
+.square{
+ background-color: #ffe3e3;
+ height: 350px;
+ width: 50%;
+ position: absolute;
+ z-index: -1;
+ transform: translateY(-25%);
+ left: 5%;
+}
+.square2{
+ background-color: #948787;
+ height: 350px;
+ width: 50%;
+ position: absolute;
+ z-index: -1;
+ transform: translateY(25%);
+ right: 5%;
+}
 </style>
