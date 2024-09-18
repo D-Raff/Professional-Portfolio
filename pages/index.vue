@@ -7,33 +7,12 @@
           <div class="char-wrapper">
             <img src="https://iili.io/Jy4RwiJ.png" alt="chibi-img" />
             <div class="suit">
-              <img
-                src="https://iili.io/Jy6nlCQ.png"
-                alt="right-a"
-                class="right-a"
-              />
-              <img
-                src="https://iili.io/Jy6nG3P.png"
-                alt="left-a"
-                class="left-a"
-              />
+              <img src="https://iili.io/Jy6nlCQ.png" alt="right-a" class="right-a" />
+              <img src="https://iili.io/Jy6nG3P.png" alt="left-a" class="left-a" />
               <img src="https://iili.io/Jy4RjVa.png" alt="helmet" data-helmet />
-              <img
-                src="https://iili.io/Jy6Ybu2.png"
-                alt="armor"
-                class="armor"
-                loading="eager"
-              />
-              <img
-                src="https://iili.io/Jy6n16B.png"
-                alt="left-l"
-                class="left-l"
-              />
-              <img
-                src="https://iili.io/Jy6nV8F.png"
-                alt="right-l"
-                class="right-l"
-              />
+              <img src="https://iili.io/Jy6Ybu2.png" alt="armor" class="armor" loading="eager" />
+              <img src="https://iili.io/Jy6n16B.png" alt="left-l" class="left-l" />
+              <img src="https://iili.io/Jy6nV8F.png" alt="right-l" class="right-l" />
             </div>
             <div class="block"></div>
           </div>
@@ -60,23 +39,26 @@
       </div>
       <div class="content">
         <div id="About" class="container d-flex pt-5">
-          <div class="square"></div>
-          <div class="square2"></div>
-          <img src="https://iili.io/JhDRlWB.png" alt="profile" />
-          <section class="about-inf">
-            <h2>Damon Raffels</h2>
-            <div class="underline"></div>
-            <p>
-              A versatile developer skilled in both mechanics and fullstack web
-              development, with a certificate from Life Choices Coding Academy.
-              Proficient in HTML, CSS, Bootstrap, JavaScript, Vue.js, Node.js,
-              and MySQL, complemented by badges in Scrum, Cisco Networking, and
-              Python Essentials. Past roles provided experience in engine
-              rebuilding, overhauling, and inventory management, along with
-              strong communication and conflict resolution skills.
-            </p>
+          <div class="square">
+            <img src="https://iili.io/JhDRlWB.png" class="about-img" alt="profile" />
+          </div>
+          <div class="square-block"></div>
+          <div class="square2">
+            <div class="info-text">
+              <h2 class="name-head">Damon Raffels</h2>
+              <div class="underline"></div>
+              <p class="pers-info">
+                A versatile developer skilled in both mechanics and fullstack web
+                development, with a certificate from Life Choices Coding Academy.
+                Proficient in HTML, CSS, Bootstrap, JavaScript, Vue.js, Node.js,
+                and MySQL, complemented by badges in Scrum, Cisco Networking, and
+                Python Essentials. Past roles provided experience in engine
+                rebuilding, overhauling, and inventory management, along with
+                strong communication and conflict resolution skills.
+              </p>
+            </div>
             <p>Hobbies include hiking, gaming, sketching, and coding.</p>
-          </section>
+          </div>
         </div>
       </div>
     </div>
@@ -138,7 +120,7 @@ function overlay() {
   });
   useGsap.to(".open", {
     duration: 1,
-    x: -700,
+    x: "-50vw",
     delay: 1.2,
   });
   useGsap.to(".open2", {
@@ -148,8 +130,33 @@ function overlay() {
   });
   useGsap.to(".open2", {
     duration: 1,
-    x: 700,
+    x: "50vw",
     delay: 1.2,
+  });
+  useGsap.from(".square", {
+    x: -800,
+    duration: 1,
+    delay: 1.3,
+  });
+  useGsap.from(".about-img", {
+    x: -400,
+    duration: 1,
+    delay: 1.5,
+  });
+  useGsap.from(".name-head", {
+    x: "20vw",
+    duration: 1,
+    delay: 1.5,
+  });
+  useGsap.from(".square2", {
+    x: 800,
+    duration: 1,
+    delay: 1.3,
+  });
+  useGsap.from(".info-text", {
+    x: 400,
+    duration: 1,
+    delay: 1.5,
   });
 }
 </script>
@@ -160,11 +167,13 @@ function overlay() {
   width: 100vw;
   overflow-x: hidden;
 }
+
 .Home {
   overflow: hidden;
   min-height: 100vh;
   width: 100vw;
 }
+
 .scroll {
   overflow-y: visible !important;
 }
@@ -179,38 +188,47 @@ function overlay() {
   top: 4.6rem;
   background: #ffe3e3;
 }
+
 .shrink {
   animation: shrink 1s linear forwards;
   background: transparent;
 }
+
 .activate {
   display: flex;
   align-self: flex-start;
   left: 20px;
   z-index: 2;
 }
+
 .head {
   color: red;
   position: relative;
   font-size: 16rem;
 }
+
 .lift-anim {
   animation: lift 1s linear forwards;
 }
+
 :is(.title, .name) {
   color: #ffe3e3;
 }
+
 .name {
   font-size: 6rem;
   position: relative;
   bottom: 15px;
 }
+
 .title {
   font-size: 1rem;
 }
-.title > span {
+
+.title>span {
   color: red;
 }
+
 .disappear {
   margin: 0;
   padding: 0;
@@ -219,9 +237,14 @@ function overlay() {
   display: flex;
   overflow: hidden;
 }
+
 .arrow {
   position: relative;
   animation: point 1s infinite;
+}
+
+.pers-info {
+  color: #ffe3e3;
 }
 
 /* main css */
@@ -235,10 +258,12 @@ function overlay() {
   overflow: hidden;
   background: #ffe3e3;
 }
+
 .background {
   position: absolute;
   background: #030303;
 }
+
 .expand {
   animation: dark-mode 2s forwards linear;
 }
@@ -248,6 +273,7 @@ function overlay() {
   display: flex;
   margin-right: 3em;
 }
+
 .char-wrapper {
   position: relative;
   width: 250px;
@@ -275,9 +301,11 @@ function overlay() {
   justify-content: center;
   align-items: center;
 }
+
 .arc {
   animation: arc-reactor 2s forwards;
 }
+
 .spin {
   position: absolute;
   height: 30px;
@@ -285,11 +313,13 @@ function overlay() {
   border-radius: 50%;
   box-shadow: 0px 0.5px 4px 2px #67c7eb;
 }
+
 .flux {
   height: 49px;
   width: 49px;
   animation: flux 0.15s linear infinite;
 }
+
 .btn-back {
   height: 49px;
   width: 49px;
@@ -310,10 +340,12 @@ function overlay() {
   perspective: 1000px;
   z-index: 1;
 }
+
 img[alt="chibi-img"] {
   width: 298px;
   position: absolute;
 }
+
 img[alt="helmet"] {
   height: 190px;
   width: 290px;
@@ -323,6 +355,7 @@ img[alt="helmet"] {
   z-index: 4;
   visibility: hidden;
 }
+
 img[alt="right-a"] {
   height: 50px;
   width: 30px;
@@ -332,6 +365,7 @@ img[alt="right-a"] {
   z-index: 3;
   visibility: hidden;
 }
+
 img[alt="left-a"] {
   height: 50px;
   width: 30px;
@@ -340,6 +374,7 @@ img[alt="left-a"] {
   left: 7.5em;
   visibility: hidden;
 }
+
 img[alt="armor"] {
   height: 190px;
   width: 450px;
@@ -349,6 +384,7 @@ img[alt="armor"] {
   z-index: 2;
   visibility: hidden;
 }
+
 img[alt="left-l"] {
   height: 40px;
   width: 35px;
@@ -358,6 +394,7 @@ img[alt="left-l"] {
   z-index: 1;
   visibility: hidden;
 }
+
 img[alt="right-l"] {
   height: 40px;
   width: 35px;
@@ -376,87 +413,107 @@ img[alt="right-l"] {
     visibility: hidden;
     transform: translatez(900px);
   }
+
   to {
     visibility: visible;
     transform: translatez(0px);
   }
 }
+
 @keyframes equip-rl {
   from {
     visibility: hidden;
     transform: translatez(900px);
   }
+
   to {
     visibility: visible;
     transform: translatez(0px);
   }
 }
+
 @keyframes equip-la {
   from {
     visibility: hidden;
     transform: translatez(900px);
   }
+
   to {
     visibility: visible;
     transform: translatez(0px);
   }
 }
+
 @keyframes equip-ll {
   from {
     visibility: hidden;
     transform: translatez(900px);
   }
+
   to {
     visibility: visible;
     transform: translatez(0px);
   }
 }
+
 @keyframes equip-armor {
   from {
     visibility: hidden;
     transform: translatez(900px);
   }
+
   to {
     visibility: visible;
     transform: translatez(0px);
   }
 }
+
 @keyframes helm-equip {
   from {
     visibility: hidden;
     transform: translatey(-200px);
   }
+
   to {
     visibility: visible;
     transform: translatey(0px);
   }
 }
+
 @keyframes disappear {
   99% {
     opacity: 0%;
   }
+
   100% {
     opacity: 0%;
   }
 }
+
 .equip-suit {
   z-index: 6;
 }
+
 .equip-la {
   animation: equip-la 0.8s ease-in forwards;
 }
+
 .equip-ll {
   animation: equip-ll 0.8s 0.3s ease-in forwards;
 }
+
 .armor-equip {
   animation: equip-armor 0.5s 0.5s ease-in forwards;
 }
+
 .equip-ra {
   animation: equip-ra 0.8s 0.6s ease-in forwards;
 }
+
 .equip-rl {
   animation: equip-rl 0.8s 0.7s ease-in forwards;
 }
+
 .helm-equip {
   animation: helm-equip 0.8s 1.2s 1 ease-in forwards;
 }
@@ -472,13 +529,16 @@ img[alt="right-l"] {
   background: transparent;
   z-index: 0;
 }
+
 .cover {
   animation: cover 0.5s 1.4s forwards;
 }
+
 @keyframes cover {
   90% {
     background: #030303;
   }
+
   100% {
     background: #030303;
   }
@@ -492,36 +552,44 @@ img[alt="right-l"] {
     box-shadow: 0px 0px 10px 6px #aa0505;
   }
 }
+
 @keyframes flux {
   to {
     rotate: 360deg;
   }
 }
+
 @keyframes dark-mode {
   0% {
     width: 0%;
     height: 1%;
   }
+
   20% {
     width: 100%;
     height: 1%;
   }
+
   100% {
     width: 100%;
     height: 100%;
   }
 }
+
 @keyframes point {
   0% {
     right: 0;
   }
+
   80% {
     right: 40px;
   }
+
   100% {
     right: 0;
   }
 }
+
 @keyframes arc-reactor {
   to {
     background: url("https://iili.io/d9ppT67.png") center no-repeat #67c7eb;
@@ -542,6 +610,7 @@ img[alt="right-l"] {
     font-size: 6rem;
   }
 }
+
 @keyframes shrink {
   to {
     top: 1em;
@@ -557,16 +626,19 @@ img[alt="right-l"] {
   overflow-x: hidden;
   position: absolute;
   transform: translateY(100vh);
-  /* display: none; */
-  display: flex;
+  display: none;
+  /* display: flex; */
 }
+
 .display {
   display: flex !important;
 }
+
 .split {
   display: flex;
   position: absolute;
 }
+
 .content {
   height: 100%;
   width: 100%;
@@ -575,12 +647,14 @@ img[alt="right-l"] {
   justify-content: center;
   font-family: "Electrolize", sans-serif;
 }
-/* .open {
+
+.open {
   height: 100vh;
   width: 50vw;
   border-right: 2px solid #67c7eb;
   box-shadow: inset -1px 0px 5px 0px #67c7eb;
 }
+
 .open2 {
   height: 100vh;
   width: 50vw;
@@ -588,13 +662,17 @@ img[alt="right-l"] {
   border-left: 2px solid #67c7eb;
   box-shadow: inset 1px 0px 5px 0px #67c7eb;
 }
+
 :is(.open, .open2) {
   background-color: #030303;
   position: relative;
-} */
+}
 
 img[alt="profile"] {
-  height: 400px;
+  height: 60vh;
+  position: relative;
+  bottom: 20.3vh;
+  right: 10%;
 }
 
 #About {
@@ -607,27 +685,52 @@ h2 {
 }
 
 .underline {
-  border: 2px solid red;
-  width: 25.4%;
+  border: 2px solid #67c7eb;
+  width: 100%;
   margin-bottom: 20px;
 }
 
-.square{
- background-color: #ffe3e3;
- height: 350px;
- width: 50%;
- position: absolute;
- z-index: -1;
- transform: translateY(-25%);
- left: 5%;
+.square {
+  background-color: #ffe3e3;
+  height: 350px;
+  width: 50%;
+  position: absolute;
+  z-index: -1;
+  transform: translateY(-25%);
+  left: 5%;
+  display: flex;
+  justify-content: center;
+  background: url("https://iili.io/d6phWzb.jpg");
+  background-position: center;
 }
-.square2{
- background-color: #948787;
- height: 350px;
- width: 50%;
- position: absolute;
- z-index: -1;
- transform: translateY(25%);
- right: 5%;
+
+.square-block {
+  background-color: #030303;
+  height: 50px;
+  width: 50%;
+  position: absolute;
+  z-index: -1;
+  transform: translateY(227%);
+  left: 5%;
+  display: flex;
+  justify-content: center;
+}
+
+.square2 {
+  background-color: #948787;
+  height: 350px;
+  width: 50%;
+  position: absolute;
+  z-index: -1;
+  transform: translateY(25%);
+  right: 5%;
+  padding: 20px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.name-head {
+  color: #aa0505;
 }
 </style>
