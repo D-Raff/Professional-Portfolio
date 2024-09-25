@@ -103,7 +103,6 @@ img[alt="skill-logo"] {
 h1 {
     font-size: 100px;
     color: #aa0505;
-    overflow: hidden;
 }
 
 .stack-under {
