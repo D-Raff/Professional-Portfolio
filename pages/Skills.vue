@@ -4,7 +4,7 @@
         </h1>
         <p class="skill-info">
             With an evergrowing interest in more technologies and languages, I have an ever expanding library of skills
-            <section>{add beginner - mid-level experience}</section>
+            <section>I have Beginner - intermediate skills with these technologies</section>
         </p>
         <div class="carousel-wrapper container d-flex">
             <div class="skill-carousel d-flex">
@@ -67,6 +67,8 @@ onMounted(
 )
 </script>
 
+
+
 <style scoped>
 .skills {
     font-family: "Share Tech Mono", monospace;
@@ -79,6 +81,7 @@ onMounted(
 .skill-info{
     font-family: Electrolize;
     color: #67c7eb;
+    text-align: center;
 }
 
 .skill-carousel {
@@ -96,8 +99,10 @@ img[alt="skill-logo"] {
     height: 160px;
     aspect-ratio: 1/1;
     margin: 10px;
-    /* box-shadow: inset #67c7eb 0 0 30px 9px; */
-    /* border-radius: 10px; */
+    box-shadow: #67c7eb 0 0 5px 1px;
+    border-radius: 10px;
+    object-fit: contain;
+    padding: 10px;
 }
 
 h1 {
