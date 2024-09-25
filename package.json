@@ -11,6 +11,7 @@
   },
   "dependencies": {
     "@pinia/nuxt": "^0.5.4",
+    "firebase": "^10.13.2",
     "gsap": "^3.12.5",
     "nuxt": "^3.11.2",
     "pinia": "^2.2.2",
