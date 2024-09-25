@@ -4,6 +4,7 @@
         </h1>
         <p class="skill-info">
             With an evergrowing interest in more technologies and languages, I have an ever expanding library of skills
+            <section>{add beginner - mid-level experience}</section>
         </p>
         <div class="carousel-wrapper container d-flex">
             <div class="skill-carousel d-flex">
