@@ -1,4 +1,5 @@
 <template>
+
   <div id="content">
     <div class="Home">
       <div id="landing" class="landing">
@@ -93,6 +94,32 @@ function equip() {
   setTimeout(() => {
     overlay();
   }, "2800");
+  setTimeout(()=> {
+    Display()
+  }, "3000")
+}
+
+function Display() {
+    tl.from(".stack-under", { scaleX: '0', duration: .6, delay: 0.5, })
+        .from(".skill-info", { y: -200, stagger: 0.2, duration: 0.7, ease: "back" })
+    useGsap.from(".skill-img", {
+        y: 200,
+        stagger: 0.2,
+        duration: 0.7,
+        ease: "back",
+        scrollTrigger: {
+            trigger: ".stack-under",
+            start: "top 40%",
+            end: "top 20%",
+            toggleActions: "restart reverse restart reverse",
+            markers: {
+                startColor: "purple",
+                endColor: "red",
+                fontSize: "20px"
+            }
+        }
+    })
+    Carousel()
 }
 
 onMounted(() => {
@@ -163,7 +190,8 @@ function overlay() {
 
 <style scoped>
 #content {
-  display: flex;
+  display: flex !important;
+  flex-direction: column !important;
   width: 100vw;
   overflow-x: hidden;
 }
@@ -632,6 +660,7 @@ img[alt="right-l"] {
 
 .display {
   display: flex !important;
+  flex-direction: column !important;
 }
 
 .split {
@@ -644,6 +673,7 @@ img[alt="right-l"] {
   width: 100%;
   color: #67c7eb;
   display: flex;
+  flex-direction: column;
   justify-content: center;
   font-family: "Electrolize", sans-serif;
 }

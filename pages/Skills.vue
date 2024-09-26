@@ -1,10 +1,13 @@
 <template>
+    <div id="work-xp">
+
+    </div>
     <div class="skills container-fluid d-flex">
         <h1>Tech Stack <section class="stack-under"></section>
         </h1>
         <p class="skill-info">
             With an evergrowing interest in more technologies and languages, I have an ever expanding library of skills
-            <section>I have Beginner - intermediate skills with these technologies</section>
+        <section>I have Beginner - intermediate skills with these technologies</section>
         </p>
         <div class="carousel-wrapper container d-flex">
             <div class="skill-carousel d-flex">
@@ -36,49 +39,58 @@ function Carousel() {
         duration: 15,
         delay: 2.5,
         repeat: -1,
-        ease:'none'
+        ease: 'none'
     })
 }
 
+const tl = useGsap.timeline();
 
 onMounted(
     () => {
+        tl.from(".stack-under", { scaleX: '0', duration: .6, delay: 0.5, })
+            .from(".skill-info", { y: -200, stagger: 0.2, duration: 0.7, ease: "back" })
         useGsap.from(".skill-img", {
             y: 200,
             stagger: 0.2,
             duration: 0.7,
             ease: "back",
-            delay: 1
-        })
-        useGsap.from(".skill-info", {
-            y: -200,
-            stagger: 0.2,
-            duration: 0.7,
-            ease: "back",
-            delay: .5,
-        })
-        useGsap.from(".stack-under", {
-            scaleX: '0',
-            duration: .6,
-            delay: 0.5
+            scrollTrigger: {
+                trigger: ".carousel-wrapper",
+                start: "top 40%",
+                end: "top 20%",
+                toggleActions: "restart reverse restart reverse",
+                markers: {
+                    startColor: "purple",
+                    endColor: "red",
+                    fontSize: "20px"
+                }
+            }
         })
         Carousel()
     }
 )
+
 </script>
 
 
 
 <style scoped>
+
+#work-xp{
+    min-height: 100vh;
+}
+
 .skills {
     font-family: "Share Tech Mono", monospace;
     font-weight: bold;
     flex-direction: column;
     align-items: center;
+    /* justify-content: center; */
     background-color: #030303;
+    min-height: 100vh;
 }
 
-.skill-info{
+.skill-info {
     font-family: Electrolize;
     color: #67c7eb;
     text-align: center;
@@ -99,7 +111,7 @@ img[alt="skill-logo"] {
     height: 160px;
     aspect-ratio: 1/1;
     margin: 10px;
-    box-shadow: #67c7eb 0 0 5px 1px;
+    box-shadow: inset #67c7eb 0 0 10px 1px;
     border-radius: 10px;
     object-fit: contain;
     padding: 10px;
