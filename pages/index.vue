@@ -87,6 +87,10 @@ function equip() {
     y: 0,
     delay: 2.4,
   });
+  useGsap.to(".spin", {
+    height: '49px',
+    duration: 2,
+  });
   setTimeout(() => {
     document.querySelector("#Main").classList.add("display");
   }, "2200");
@@ -269,7 +273,6 @@ function overlay() {
 }
 
 .Animation {
-  /* border: 1px solid blue; */
   display: flex;
   margin-right: 3em;
 }
@@ -286,9 +289,7 @@ function overlay() {
   width: 50px;
   border-radius: 10px;
   border: none;
-  /* box-shadow: 0px 0px 5px 1px #aa0505; */
   transition: 0.5s;
-  /* background-color: #67c7eb; */
   color: #aa0505;
   font-family: "Share Tech Mono", monospace;
   font-weight: bold;
@@ -315,9 +316,9 @@ function overlay() {
 }
 
 .flux {
-  height: 49px;
-  width: 49px;
-  animation: flux 0.15s linear infinite;
+  /* height: 49px;
+  width: 49px; */
+  animation: flux 0.15s linear infinite 1s;
 }
 
 .btn-back {
