@@ -550,7 +550,7 @@ img[alt="right-l"] {
 @keyframes mini-pulse {
   50% {
     border: none;
-    box-shadow: 0px 0px 10px 6px #aa0505;
+    box-shadow: 0px 0px 10px 6px #aa0505, inset 0px 0px 1.5px 1px #aa0505;
   }
 }
 
@@ -672,8 +672,9 @@ img[alt="right-l"] {
 img[alt="profile"] {
   height: 60vh;
   position: relative;
-  bottom: 20.3vh;
+  bottom: 10%;
   right: 10%;
+  transform: skew(-10deg);
 }
 
 #About {
@@ -697,7 +698,7 @@ h2 {
   width: 50%;
   position: absolute;
   z-index: -1;
-  transform: translateY(-25%);
+  transform: translateY(-25%) skew(10deg);
   left: 5%;
   display: flex;
   justify-content: center;
@@ -723,7 +724,7 @@ h2 {
   width: 50%;
   position: absolute;
   z-index: -1;
-  transform: translateY(25%);
+  transform: translateY(25%) skew(10deg);
   right: 5%;
   padding: 20px;
   display: flex;
