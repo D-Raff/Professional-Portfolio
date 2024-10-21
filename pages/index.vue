@@ -674,7 +674,6 @@ img[alt="profile"] {
   position: relative;
   bottom: 10%;
   right: 10%;
-  transform: skew(-10deg);
 }
 
 #About {
@@ -698,7 +697,7 @@ h2 {
   width: 50%;
   position: absolute;
   z-index: -1;
-  transform: translateY(-25%) skew(10deg);
+  transform: translateY(-25%);
   left: 5%;
   display: flex;
   justify-content: center;
@@ -724,7 +723,7 @@ h2 {
   width: 50%;
   position: absolute;
   z-index: -1;
-  transform: translateY(25%) skew(10deg);
+  transform: translateY(25%);
   right: 5%;
   padding: 20px;
   display: flex;
