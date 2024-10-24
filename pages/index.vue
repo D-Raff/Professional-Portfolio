@@ -707,14 +707,15 @@ h2 {
 
 .square-block {
   background-color: #030303;
-  height: 50px;
+  height: 100px;
   width: 50%;
-  position: absolute;
+  position: relative;
   z-index: -1;
   transform: translateY(227%);
-  left: 5%;
+  bottom: 90px;
   display: flex;
   justify-content: center;
+  border: #67c7eb 3px solid;
 }
 
 .square2 {

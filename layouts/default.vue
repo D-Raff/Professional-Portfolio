@@ -27,8 +27,84 @@ let tl = useGsap.timeline()
 
 
 // watch effect is a reactive fucntion that constantly checks for a specififc parameter to be true or fals
-watchEffect(() => {
-    if (OnOff.value === true) {
+// watchEffect(() => {
+//     if (OnOff.value === true) {
+//         useGsap.to(".nav-item1", {
+//             x: -130,
+//             y: 10,
+//             duration: .4,
+//             ease: "back"
+//         })
+//         useGsap.to(".nav-item2", {
+//             x: -95,
+//             y: -88,
+//             duration: .4,
+//             ease: "back"
+//         })
+//         useGsap.to(".nav-item3", {
+//             x: 0,
+//             y: -130,
+//             duration: .4,
+//             ease: "back"
+//         })
+//         useGsap.to("#main-nav", {
+//             background: "blue"
+//         })
+//     } else if (OnOff.value === false) {
+//         tl.to(".nav-item1", {
+//             x: 0,
+//             y: 0,
+//             duration: .15,
+//             ease: "in"
+//         })
+//         tl.to(".nav-item2", {
+//             x: 0,
+//             y: 0,
+//             duration: .15,
+//             ease: "in"
+//         })
+//         tl.to(".nav-item3", {
+//             x: 0,
+//             y: 0,
+//             duration: .15,
+//             ease: "in"
+//         })
+//             .to("#main-nav", {
+//                 background: "red"
+//             })
+//     }
+// })
+
+
+function menu() {
+    tl.to(".nav-item1", {
+        x: 0,
+        y: 0,
+        duration: .15,
+        ease: "in"
+    })
+    tl.to(".nav-item2", {
+        x: 0,
+        y: 0,
+        duration: .15,
+        ease: "in"
+    })
+    tl.to(".nav-item3", {
+        x: 0,
+        y: 0,
+        duration: .15,
+        ease: "in"
+    })
+        .to("#main-nav", {
+            background: "red"
+        })
+}
+
+onMounted(() => {
+    let menuItem = document.querySelectorAll('[class^="nav-item"]')
+    let NavHover = document.querySelector('#Navigation')
+
+    NavHover.addEventListener('mouseenter', () => {
         useGsap.to(".nav-item1", {
             x: -130,
             y: 10,
@@ -50,7 +126,8 @@ watchEffect(() => {
         useGsap.to("#main-nav", {
             background: "blue"
         })
-    } else if (OnOff.value === false) {
+    })
+    NavHover.addEventListener('mouseleave', () => {
         tl.to(".nav-item1", {
             x: 0,
             y: 0,
@@ -72,19 +149,17 @@ watchEffect(() => {
             .to("#main-nav", {
                 background: "red"
             })
-    }
+    })
+
+
+    menuItem.forEach(Nav => {
+        Nav.addEventListener('click', () => {
+            menu()
+        })
+    });
 })
 
 
-
-
-function menu() {
-    if (!OnOff.value) {
-        OnOff.value = true
-    } else if (OnOff.value) {
-        OnOff.value = false
-    }
-}
 
 
 </script>
