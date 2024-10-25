@@ -1,9 +1,8 @@
 <template>
     <div id="Navigation" class="container">
         <div id="main-nav" class="container">
-            <button @click="menu()">Navigation menu {{ OnOff }}</button>
         </div>
-        <NuxtLink to="/" class="nav-item1">Home Page</NuxtLink>
+        <NuxtLink to="/" class="nav-item1">Home</NuxtLink>
         <NuxtLink to="/main" class="nav-item2">main</NuxtLink>
         <NuxtLink to="/skills" class="nav-item3">Skills and Experience</NuxtLink>
     </div>
@@ -16,13 +15,13 @@
 <script setup>
 // Import the skills store
 import { useSkillsStore } from '~/stores/skills';
-import { ref } from 'vue';
-import { watchEffect } from 'vue';
+// import { ref } from 'vue';
+// import { watchEffect } from 'vue';
 
 // Fetch the skills data globally in layout
 const skillsStore = useSkillsStore();
 await skillsStore.fetchSkills();
-let OnOff = ref()
+// let OnOff = ref()
 let tl = useGsap.timeline()
 
 
@@ -123,31 +122,33 @@ onMounted(() => {
             duration: .4,
             ease: "back"
         })
-        useGsap.to("#main-nav", {
-            background: "blue"
+        useGsap.to("#Navigation", {
+            height: "270px",
+            width: "270px"
         })
     })
     NavHover.addEventListener('mouseleave', () => {
         tl.to(".nav-item1", {
             x: 0,
             y: 0,
-            duration: .15,
+            duration: .13,
             ease: "in"
         })
         tl.to(".nav-item2", {
             x: 0,
             y: 0,
-            duration: .15,
+            duration: .13,
             ease: "in"
         })
         tl.to(".nav-item3", {
             x: 0,
             y: 0,
-            duration: .15,
+            duration: .13,
             ease: "in"
         })
-            .to("#main-nav", {
-                background: "red"
+            .to("#Navigation", {
+                height: "200px",
+                width: "200px"
             })
     })
 
@@ -170,8 +171,7 @@ onMounted(() => {
 }
 
 #Navigation {
-    border: 3px solid red;
-    width: 250px;
+    width: 200px;
     aspect-ratio: 1/1;
     border-radius: 50%;
     box-sizing: border-box;
@@ -181,7 +181,7 @@ onMounted(() => {
     position: fixed;
     bottom: 0;
     right: 0;
-    background: black;
+    background: transparent;
     padding: 0;
     z-index: 1;
 }
@@ -203,8 +203,8 @@ onMounted(() => {
     border: 3px red solid;
     position: absolute;
     border-radius: 50%;
-    height: 100px !important;
-    width: 100px !important;
+    height: 90px !important;
+    width: 90px !important;
     display: flex;
     justify-content: center;
     align-items: center;

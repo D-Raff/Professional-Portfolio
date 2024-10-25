@@ -24,9 +24,7 @@
 </template>
 
 <script setup>
-// import the store for data pulling
-// import { useSkillsStore } from '~/stores/skills';
-
+// skillstore is being imported in the default layout which is loaded first
 const skillsStore = useSkillsStore()
 await skillsStore.fetchSkills()
 let skills = skillsStore.skills

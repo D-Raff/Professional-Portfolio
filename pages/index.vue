@@ -667,6 +667,7 @@ img[alt="right-l"] {
 :is(.open, .open2) {
   background-color: #030303;
   position: relative;
+  z-index: 999;
 }
 
 img[alt="profile"] {
@@ -715,7 +716,6 @@ h2 {
   bottom: 90px;
   display: flex;
   justify-content: center;
-  border: #67c7eb 3px solid;
 }
 
 .square2 {
