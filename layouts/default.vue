@@ -104,27 +104,46 @@ onMounted(() => {
     let NavHover = document.querySelector('#Navigation')
 
     NavHover.addEventListener('mouseenter', () => {
-        useGsap.to(".nav-item1", {
+        tl.to(".nav-item1", {
             x: -130,
             y: 10,
-            duration: .4,
+            duration: .13,
             ease: "back"
         })
-        useGsap.to(".nav-item2", {
+        .to(".nav-item2", {
             x: -95,
             y: -88,
-            duration: .4,
+            duration: .13,
             ease: "back"
         })
-        useGsap.to(".nav-item3", {
+        .to(".nav-item3", {
             x: 0,
             y: -130,
-            duration: .4,
+            duration: .13,
             ease: "back"
         })
+        // useGsap.to(".nav-item1", {
+        //     x: -130,
+        //     y: 10,
+        //     duration: .4,
+        //     ease: "back"
+        // })
+        // useGsap.to(".nav-item2", {
+        //     x: -95,
+        //     y: -88,
+        //     duration: .4,
+        //     ease: "back"
+        // })
+        // useGsap.to(".nav-item3", {
+        //     x: 0,
+        //     y: -130,
+        //     duration: .4,
+        //     ease: "back"
+        // })
         useGsap.to("#Navigation", {
             height: "270px",
-            width: "270px"
+            width: "270px",
+            rotate: 0
         })
     })
     NavHover.addEventListener('mouseleave', () => {
@@ -146,9 +165,10 @@ onMounted(() => {
             duration: .13,
             ease: "in"
         })
-            .to("#Navigation", {
-                height: "200px",
-                width: "200px"
+        useGsap.to("#Navigation", {
+            height: "200px",
+            width: "200px",
+            rotate: 180
             })
     })
 
@@ -184,6 +204,7 @@ onMounted(() => {
     background: transparent;
     padding: 0;
     z-index: 1;
+    rotate: 180;
 }
 
 #main-nav {
