@@ -671,7 +671,7 @@ img[alt="right-l"] {
 }
 
 img[alt="profile"] {
-  height: 60vh;
+  height: 120%;
   position: relative;
   bottom: 10%;
   right: 10%;
