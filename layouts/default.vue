@@ -1,6 +1,7 @@
 <template>
     <div id="Navigation" class="container">
         <div id="main-nav" class="container">
+            <p data-nav>Navigation</p>
         </div>
         <NuxtLink to="/" class="nav-item1">Home</NuxtLink>
         <NuxtLink to="/main" class="nav-item2">main</NuxtLink>
@@ -94,9 +95,6 @@ function menu() {
         duration: .15,
         ease: "in"
     })
-        .to("#main-nav", {
-            background: "red"
-        })
 }
 
 onMounted(() => {
@@ -110,18 +108,18 @@ onMounted(() => {
             duration: .13,
             ease: "back"
         })
-        .to(".nav-item2", {
-            x: -95,
-            y: -88,
-            duration: .13,
-            ease: "back"
-        })
-        .to(".nav-item3", {
-            x: 0,
-            y: -130,
-            duration: .13,
-            ease: "back"
-        })
+            .to(".nav-item2", {
+                x: -95,
+                y: -88,
+                duration: .13,
+                ease: "back"
+            })
+            .to(".nav-item3", {
+                x: 0,
+                y: -130,
+                duration: .13,
+                ease: "back"
+            })
         // useGsap.to(".nav-item1", {
         //     x: -130,
         //     y: 10,
@@ -143,6 +141,9 @@ onMounted(() => {
         useGsap.to("#Navigation", {
             height: "270px",
             width: "270px",
+            rotate: 0
+        })
+        useGsap.to("[data-nav]", {
             rotate: 0
         })
     })
@@ -169,7 +170,10 @@ onMounted(() => {
             height: "200px",
             width: "200px",
             rotate: 180
-            })
+        })
+        useGsap.to("[data-nav]", {
+            rotate: 180
+        })
     })
 
 
@@ -204,16 +208,17 @@ onMounted(() => {
     background: transparent;
     padding: 0;
     z-index: 1;
-    rotate: 180;
+    rotate: 180deg;
 }
 
 #main-nav {
-    border: 3px blue solid;
     width: 150px;
     height: 150px;
     border-radius: 50%;
-    background: red;
+    background: #030303;
+    border: #3461e8 2px solid;
     display: flex;
+    position: relative;
     justify-content: center;
     align-items: center;
     text-align: center;
@@ -221,7 +226,8 @@ onMounted(() => {
 }
 
 :is(.nav-item1, .nav-item2, .nav-item3) {
-    border: 3px red solid;
+    border: 3px #3461e8 solid;
+    text-decoration: none;
     position: absolute;
     border-radius: 50%;
     height: 90px !important;
@@ -231,5 +237,15 @@ onMounted(() => {
     align-items: center;
     text-align: center;
     z-index: 0;
+    background: #030303;
+}
+
+[data-nav]{
+    color: #67c7eb;
+    rotate: 180deg;
+    position: fixed;
+    top: 45%;
+    margin: 0;
+    padding: 0;
 }
 </style>
