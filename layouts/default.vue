@@ -16,13 +16,9 @@
 </template>
 
 <script setup>
-// Import the skills store
-import { useSkillsStore } from '~/stores/skills';
-import { watchEffect, ref } from 'vue';
-
-// Fetch the skills data globally in layout
-const skillsStore = useSkillsStore();
-await skillsStore.fetchSkills();
+// Import the store. the store is being imported here but used on other pages
+// import { useStore } from '~/stores/skills';
+// import { watchEffect, ref } from 'vue';
 
 
 /*===================== variables =====================*/
