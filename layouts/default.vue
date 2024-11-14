@@ -11,22 +11,24 @@
     <div>
         <NuxtPage />
     </div>
+
+    <div class="blur"></div>
 </template>
 
 <script setup>
 // Import the skills store
 import { useSkillsStore } from '~/stores/skills';
-// import { ref } from 'vue';
-// import { watchEffect } from 'vue';
+import { watchEffect, ref } from 'vue';
 
 // Fetch the skills data globally in layout
 const skillsStore = useSkillsStore();
 await skillsStore.fetchSkills();
-// let OnOff = ref()
+
+
+/*===================== variables =====================*/
 let tl = useGsap.timeline()
 
-
-// watch effect is a reactive fucntion that constantly checks for a specififc parameter to be true or fals
+// watch effect is a reactive fucntion that constantly checks for a specififc parameter to be true or false
 // watchEffect(() => {
 //     if (OnOff.value === true) {
 //         useGsap.to(".nav-item1", {
@@ -75,7 +77,7 @@ let tl = useGsap.timeline()
 //     }
 // })
 
-
+/*===================== functions =====================*/
 function menu() {
     tl.to(".nav-item1", {
         x: 0,
@@ -95,7 +97,12 @@ function menu() {
         duration: .15,
         ease: "in"
     })
+    useGsap.to("#Navigation", {
+        height: "200px",
+        width: "200px",
+    })
 }
+
 
 onMounted(() => {
     let menuItem = document.querySelectorAll('[class^="nav-item"]')
@@ -120,31 +127,17 @@ onMounted(() => {
                 duration: .13,
                 ease: "back"
             })
-        // useGsap.to(".nav-item1", {
-        //     x: -130,
-        //     y: 10,
-        //     duration: .4,
-        //     ease: "back"
-        // })
-        // useGsap.to(".nav-item2", {
-        //     x: -95,
-        //     y: -88,
-        //     duration: .4,
-        //     ease: "back"
-        // })
-        // useGsap.to(".nav-item3", {
-        //     x: 0,
-        //     y: -130,
-        //     duration: .4,
-        //     ease: "back"
-        // })
         useGsap.to("#Navigation", {
             height: "270px",
             width: "270px",
-            rotate: 0
+            duration: .5,
+            ease: "back",
         })
-        useGsap.to("[data-nav]", {
-            rotate: 0
+        useGsap.to(".blur", {
+            display: "block",
+            backdropFilter: 'blur(5px)',
+            duration: 0.3,
+            ease: "power2.inOut"
         })
     })
     NavHover.addEventListener('mouseleave', () => {
@@ -169,11 +162,13 @@ onMounted(() => {
         useGsap.to("#Navigation", {
             height: "200px",
             width: "200px",
-            rotate: 180
         })
-        useGsap.to("[data-nav]", {
-            rotate: 180
-        })
+        useGsap.to(".blur", {
+            backdropFilter: 'blur(0px)',
+            duration: 0.5,
+            ease: "power2.inOut",
+            display: "none"
+        });
     })
 
 
@@ -208,7 +203,6 @@ onMounted(() => {
     background: transparent;
     padding: 0;
     z-index: 1;
-    rotate: 180deg;
 }
 
 #main-nav {
@@ -240,12 +234,19 @@ onMounted(() => {
     background: #030303;
 }
 
-[data-nav]{
+[data-nav] {
     color: #67c7eb;
-    rotate: 180deg;
-    position: fixed;
-    top: 45%;
-    margin: 0;
+    position: relative;
     padding: 0;
+    z-index: 100;
+}
+
+.blur {
+    height: 100vh;
+    width: 100vw;
+    background: transparent;
+    position: fixed;
+    top: 0;
+    display: none;
 }
 </style>

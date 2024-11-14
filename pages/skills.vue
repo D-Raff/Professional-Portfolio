@@ -1,11 +1,16 @@
 <template>
+    <div class="Work">
+        <section class="experience">
+            <p>Panthera Conservation</p>
+        </section>
+    </div>
     <div id="Skills" class="container-fluid">
         <h1>
             Tech Stack
             <section class="stack-under"></section>
         </h1>
         <p class="skill-info">
-            With an evergrowing interest in more technologies and languages, I have an ever expanding library of skills
+            With an evergrowing interest in more technologies and languages, I have an ever expanding library of skills.
         <section>I have beginner - intermediate skills with these languages and tools</section>
         </p>
         <div class="carousel-wrapper container">
@@ -32,7 +37,7 @@ let skills = skillsStore.skills
 
 
 // create a variable for the timeline function of gsap
-const tl = useGsap.timeline()
+// const tl = useGsap.timeline()
 
 function Carousel() {
     let skillCarousel = document.querySelectorAll(".skill-carousel")
@@ -62,8 +67,9 @@ function underline() {
             }
         }
     })
-    useGsap.from(".skill-info", { scaleY: '0', stagger: .2, duration: .7, ease: "back", delay: .5,
-    scrollTrigger: {
+    useGsap.from(".skill-info", {
+        scaleY: '0', stagger: .2, duration: .7, ease: "back", delay: .5,
+        scrollTrigger: {
             trigger: ".carousel-wrapper",
             start: "top 40%",
             end: "top 21%",
@@ -106,7 +112,7 @@ onMounted(() => {
 <style scoped>
 #Skills {
     font-family: "Share Tech Mono", monospace;
-    min-height: 200vh;
+    min-height: 200vh; /* this is temp while I am adding work experience*/
     display: flex;
     flex-direction: column;
     background: #030303;
@@ -152,5 +158,13 @@ h1 {
     border: #67c7eb 1px solid;
     width: 100%;
     box-shadow: #67c7eb 0px 0px 5px 2px;
+}
+
+.Work {
+    background: #030303;
+    border: #aa0505 3px solid;
+    /* min-height: 100vh; */
+    display: flex;
+    flex-direction: column;
 }
 </style>
