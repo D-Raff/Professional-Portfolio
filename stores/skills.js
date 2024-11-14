@@ -9,10 +9,13 @@ export const useSkillsStore = defineStore('skillStore', {
         // fetching all skills
         async fetchSkills(){
             const result = await fetch(dataUrl);
-            let Data = await result.json()            
+            let Data = await result.json() 
+            console.log(Data.work);
+                       
             
             this.skills = Data.skills         
         }
+        //fetching my work experience
 
     }
 })
