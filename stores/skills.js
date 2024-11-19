@@ -19,7 +19,7 @@ export const useStore = defineStore('dataStore', {
             const result = await fetch(dataUrl);
             let Data = await result.json()                        
             
-            this.work = Data.work         
+            this.work = Data.work            
         }
 
     }

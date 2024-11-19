@@ -186,7 +186,7 @@ onMounted(() => {
 }
 
 #Navigation {
-    width: 200px;
+    width: 100px;
     aspect-ratio: 1/1;
     border-radius: 50%;
     box-sizing: border-box;
@@ -202,8 +202,8 @@ onMounted(() => {
 }
 
 #main-nav {
-    width: 150px;
-    height: 150px;
+    width: 100px;
+    height: 100px;
     border-radius: 50%;
     background: #030303;
     border: #3461e8 2px solid;

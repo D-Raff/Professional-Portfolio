@@ -3,18 +3,19 @@
     <section class="work-experience py-16">
         <h2 class="text-4xl font-bold mb-12 text-center">Work Experience</h2>
         <div class="container mx-auto px-4">
+            {{ work }}
             <div class="experience-timeline">
-                <div v-for="(job, index) in jobs" :key="index" class="experience-item"
+                <div v-for="(job, index) in work" :key="place" class="experience-item"
                     :class="{ 'right': index % 2 === 0 }" ref="jobCards">
                     <div
-                        class="bg-white rounded-lg shadow-lg p-6 max-w-md mx-auto transform hover:scale-105 transition-transform duration-300">
-                        <span class="text-sm text-gray-500">{{ job.period }}</span>
-                        <h3 class="text-xl font-semibold mt-2">{{ job.title }}</h3>
-                        <h4 class="text-lg text-blue-600 mb-3">{{ job.company }}</h4>
-                        <p class="text-gray-700">{{ job.description }}</p>
-                        <div class="mt-4 flex flex-wrap gap-2">
+                        class="main-card rounded-lg shadow-lg p-6 max-w-md mx-auto transform hover:scale-105 transition-transform duration-300">
+                        <span class="text-sm text-gray-500">{{ job.year }}</span>
+                        <h3 class="text-xl font-semibold mt-2">{{ job.place }}</h3>
+                        <h4 class="text-lg text-blue-600 mb-3">{{ job.description }}</h4>
+                        <!-- <p class="text-gray-700">{{ job.skills }}</p> -->
+                        <div class="flex flex-wrap">
                             <span v-for="(skill, skillIndex) in job.skills" :key="skillIndex"
-                                class="px-3 py-1 bg-blue-100 text-blue-800 rounded-full text-sm">
+                                class="work-skill">
                                 {{ skill }}
                             </span>
                         </div>
@@ -28,29 +29,14 @@
 <script setup>
 import { ref, onMounted } from 'vue'
 import gsap from 'gsap'
-import { ScrollTrigger } from 'gsap/ScrollTrigger'
+// import { ScrollTrigger } from 'gsap/ScrollTrigger'
+const Store = useStore()
+await Store.fetchWork()
+let work = Store.work
 
-gsap.registerPlugin(ScrollTrigger)
+// gsap.registerPlugin(ScrollTrigger)
 
 const jobCards = ref([])
-
-const jobs = [
-    {
-        period: '2022 - Present',
-        title: 'Senior Frontend Developer',
-        company: 'Tech Solutions Inc.',
-        description: 'Leading the frontend development team in building modern web applications using Vue.js and Nuxt.',
-        skills: ['Vue.js', 'Nuxt 3', 'TypeScript', 'TailwindCSS']
-    },
-    {
-        period: '2020 - 2022',
-        title: 'Frontend Developer',
-        company: 'Digital Innovations',
-        description: 'Developed responsive web applications and implemented complex animations.',
-        skills: ['JavaScript', 'Vue.js', 'GSAP', 'CSS3']
-    },
-    // Add more jobs as needed
-]
 
 onMounted(() => {
     jobCards.value.forEach((card, index) => {
@@ -73,6 +59,7 @@ onMounted(() => {
 <style scoped>
 .work-experience {
     background-color: #030303;
+    min-height: fit-content;
 }
 
 .experience-timeline {
@@ -122,6 +109,22 @@ onMounted(() => {
 
 .experience-item:not(.right)::before {
     right: -8px;
+}
+
+.main-card {
+    background-color: #030303;
+    color: #3b82f6;
+    border: #3b82f6 3px solid;
+    padding: 1rem;
+}
+
+.work-skill {
+    background-color: #3b82f6;
+    color: #fff;
+    padding: 0.25rem 0.5rem;
+    border-radius: 0.25rem;
+    font-size: 0.875rem;
+    line-height: 1.25rem;
 }
 
 @media (max-width: 768px) {
