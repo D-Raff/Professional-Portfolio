@@ -4,7 +4,6 @@
             <p data-nav>Navigation</p>
         </div>
         <NuxtLink to="/" class="nav-item1">Home</NuxtLink>
-        <NuxtLink to="/main" class="nav-item2">main</NuxtLink>
         <NuxtLink to="/skills" class="nav-item3">Skills and Experience</NuxtLink>
     </div>
 
@@ -194,10 +193,11 @@ onMounted(() => {
     justify-content: center;
     align-items: center;
     position: fixed;
-    bottom: 0;
-    right: 0;
+    bottom: 1rem;
+    right: 1rem;
     background: transparent;
     padding: 0;
+    margin: 20px;
     z-index: 1;
 }
 

@@ -1,21 +1,23 @@
 <!-- components/WorkExperience.vue -->
 <template>
     <section class="work-experience py-16">
-        <h2 class="text-4xl font-bold mb-12 text-center">Work Experience</h2>
+        <div class="head">
+            <h1 class="title">Work Experience
+                <section class="stack-under"></section>
+            </h1>
+        </div>
+
         <div class="container mx-auto px-4">
-            {{ work }}
             <div class="experience-timeline">
                 <div v-for="(job, index) in work" :key="place" class="experience-item"
                     :class="{ 'right': index % 2 === 0 }" ref="jobCards">
                     <div
-                        class="main-card rounded-lg shadow-lg p-6 max-w-md mx-auto transform hover:scale-105 transition-transform duration-300">
+                        class="main-card p-6 max-w-md mx-auto transform hover:scale-105 transition-transform duration-300">
                         <span class="text-sm text-gray-500">{{ job.year }}</span>
                         <h3 class="text-xl font-semibold mt-2">{{ job.place }}</h3>
-                        <h4 class="text-lg text-blue-600 mb-3">{{ job.description }}</h4>
-                        <!-- <p class="text-gray-700">{{ job.skills }}</p> -->
-                        <div class="flex flex-wrap">
-                            <span v-for="(skill, skillIndex) in job.skills" :key="skillIndex"
-                                class="work-skill">
+                        <h4 class="text-blue-600 mb-3">{{ job.description }}</h4>
+                        <div class="skill-wrapper d-flex flex-wrap">
+                            <span v-for="(skill, skillIndex) in job.skills" :key="skillIndex" class="work-skill">
                                 {{ skill }}
                             </span>
                         </div>
@@ -28,22 +30,29 @@
 
 <script setup>
 import { ref, onMounted } from 'vue'
-import gsap from 'gsap'
-// import { ScrollTrigger } from 'gsap/ScrollTrigger'
 const Store = useStore()
 await Store.fetchWork()
 let work = Store.work
 
-// gsap.registerPlugin(ScrollTrigger)
-
 const jobCards = ref([])
 
+function underline_work() {
+    useGsap.from(".stack-under", {
+        scaleX: 0,
+        stagger: 0.2,
+        duration: 0.5,
+    })
+}
+
+
 onMounted(() => {
+    underline_work()
     jobCards.value.forEach((card, index) => {
-        gsap.from(card, {
+        useGsap.from(card, {
             opacity: 0,
             y: 50,
             duration: 0.8,
+            boxShadow: "none",
             ease: 'power2.out',
             scrollTrigger: {
                 trigger: card,
@@ -57,6 +66,11 @@ onMounted(() => {
 </script>
 
 <style scoped>
+.head{
+    display: flex;
+    justify-content: center;
+}
+
 .work-experience {
     background-color: #030303;
     min-height: fit-content;
@@ -70,7 +84,7 @@ onMounted(() => {
     content: '';
     position: absolute;
     width: 2px;
-    background-color: #e2e8f0;
+    background-color: #67c7eb;
     top: 0;
     bottom: 0;
     left: 50%;
@@ -114,8 +128,13 @@ onMounted(() => {
 .main-card {
     background-color: #030303;
     color: #3b82f6;
-    border: #3b82f6 3px solid;
+    box-shadow: #3b82f6 0px 0px 5px 2px;
     padding: 1rem;
+    border-radius: 10px;
+}
+
+.skill-wrapper {
+    gap: 1em;
 }
 
 .work-skill {
@@ -124,7 +143,6 @@ onMounted(() => {
     padding: 0.25rem 0.5rem;
     border-radius: 0.25rem;
     font-size: 0.875rem;
-    line-height: 1.25rem;
 }
 
 @media (max-width: 768px) {
@@ -145,5 +163,6 @@ onMounted(() => {
     .experience-item.right {
         margin-left: 0;
     }
+
 }
 </style>
