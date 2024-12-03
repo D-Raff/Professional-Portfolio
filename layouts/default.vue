@@ -1,17 +1,17 @@
 <template>
-    <div id="Navigation" class="container">
-        <div id="main-nav" class="container">
-            <p data-nav>Navigation</p>
+    <div id="default-layout">
+        <div id="Navigation" class="container">
+            <div id="main-nav" class="container">
+                <p data-nav>Navigation</p>
+            </div>
+            <NuxtLink to="/" class="nav-item1">Home</NuxtLink>
+            <NuxtLink to="/skills" class="nav-item3">Skills and Experience</NuxtLink>
         </div>
-        <NuxtLink to="/" class="nav-item1">Home</NuxtLink>
-        <NuxtLink to="/skills" class="nav-item3">Skills and Experience</NuxtLink>
+        <div>
+            <NuxtPage />
+        </div>
+        <div class="blur"></div>
     </div>
-
-    <div>
-        <NuxtPage />
-    </div>
-
-    <div class="blur"></div>
 </template>
 
 <script setup>
@@ -182,6 +182,12 @@ onMounted(() => {
 <style scoped>
 .router-link-exact-active {
     color: red;
+}
+
+.default-layout {
+    min-height: 100vh;
+    width: 100vw;
+    background: #030303;
 }
 
 #Navigation {

@@ -1,48 +1,51 @@
 <template>
-    <section class="work-experience py-16">
-        <div class="head">
-            <h1 class="title">Work Experience
-                <section class="stack-under-work"></section>
-            </h1>
-        </div>
-
-        <div class="container mx-auto px-4">
-            <div class="experience-timeline">
-                <div v-for="(job, index) in work" :key="place" class="experience-item"
-                    :class="{ 'right': index % 2 === 0 }" ref="jobCards">
-                    <div
-                        class="main-card p-6 max-w-md mx-auto transform hover:scale-105 transition-transform duration-300">
-                        <span class="timeframe text-sm text-gray-500">{{ job.year }}</span>
-                        <h3 class="place text-xl font-semibold mt-2">{{ job.place }}</h3>
-                        <h4 class="desc mb-3">{{ job.description }}</h4>
-                        <div class="skill-wrapper d-flex flex-wrap">
-                            <span v-for="(skill, skillIndex) in job.skills" :key="skillIndex" class="work-skill">
-                                {{ skill }}
-                            </span>
+    <div id="work-skills">
+        <section class="work-experience py-16">
+            <div class="head">
+                <h1 class="title">Work Experience
+                    <section class="stack-under-work"></section>
+                </h1>
+            </div>
+            <div class="container mx-auto px-4">
+                <div class="experience-timeline">
+                    <div v-for="(job, index) in work" :key="place" class="experience-item"
+                        :class="{ 'right': index % 2 === 0 }" ref="jobCards">
+                        <div
+                            class="main-card p-6 max-w-md mx-auto transform hover:scale-105 transition-transform duration-300">
+                            <span class="timeframe text-sm text-gray-500">{{ job.year }}</span>
+                            <h3 class="place text-xl font-semibold mt-2">{{ job.place }}
+                                <section class="stack-under-work"></section>
+                            </h3>
+                            <h4 class="desc mb-3">{{ job.description }}</h4>
+                            <div class="skill-wrapper d-flex flex-wrap">
+                                <span v-for="(skill, skillIndex) in job.skills" :key="skillIndex" class="work-skill">
+                                    {{ skill }}
+                                </span>
+                            </div>
                         </div>
                     </div>
                 </div>
             </div>
-        </div>
-    </section>
-    <div id="Skills" class="container-fluid">
-        <h1 class="title">
-            Tech Stack
-            <section class="stack-under"></section>
-        </h1>
-        <p class="skill-info">
-            With an evergrowing interest in more technologies and languages, I have an ever expanding library of skills.
-        <section>I have beginner - intermediate skills with these languages and tools</section>
-        </p>
-        <div class="carousel-wrapper container">
-            <div class="skill-carousel">
-                <div v-for="skill in skills" :key="skill.title">
-                    <img :src="skill.logo" alt="skill-logo" class="skill-img">
+        </section>
+        <div id="Skills" class="container-fluid">
+            <h1 class="title">
+                Tech Stack
+                <section class="stack-under"></section>
+            </h1>
+            <p class="skill-info">
+                With an evergrowing interest in more technologies and languages, I have an ever expanding library of skills.
+            <section>I have beginner - intermediate skills with these languages and tools</section>
+            </p>
+            <div class="carousel-wrapper container">
+                <div class="skill-carousel">
+                    <div v-for="skill in skills" :key="skill.title">
+                        <img :src="skill.logo" alt="skill-logo" class="skill-img">
+                    </div>
                 </div>
-            </div>
-            <div class="skill-carousel">
-                <div v-for="skill in skills" :key="skill.title">
-                    <img :src="skill.logo" alt="skill-logo" class="skill-img">
+                <div class="skill-carousel">
+                    <div v-for="skill in skills" :key="skill.title">
+                        <img :src="skill.logo" alt="skill-logo" class="skill-img">
+                    </div>
                 </div>
             </div>
         </div>
@@ -63,7 +66,7 @@ const jobCards = ref([])
 
 
 // create a variable for the timeline function of gsap
-const tl = useGsap.timeline()
+// const tl = useGsap.timeline()
 
 function underline_work() {
     useGsap.from(".stack-under-work", {
@@ -91,28 +94,28 @@ function underline() {
         duration: 0.5,
         scrollTrigger: {
             trigger: ".carousel-wrapper",
-            start: "top 40%",
+            start: "top 50%",
             end: "top 21%",
             toggleActions: "restart reverse restart reverse",
-            markers: {
-                startColor: "purple",
-                endColor: "red",
-                fontSize: "20px"
-            }
+            // markers: {
+            //     startColor: "purple",
+            //     endColor: "red",
+            //     fontSize: "20px"
+            // }
         }
     })
     useGsap.from(".skill-info", {
         scaleY: '0', stagger: .2, duration: .7, ease: "back", delay: .5,
         scrollTrigger: {
             trigger: ".carousel-wrapper",
-            start: "top 40%",
+            start: "top 50%",
             end: "top 21%",
             toggleActions: "restart reverse restart reverse",
-            markers: {
-                startColor: "purple",
-                endColor: "red",
-                fontSize: "20px"
-            }
+            // markers: {
+            //     startColor: "purple",
+            //     endColor: "red",
+            //     fontSize: "20px"
+            // }
         }
     })
 }
@@ -143,14 +146,14 @@ onMounted(() => {
         ease: "back",
         scrollTrigger: {
             trigger: ".carousel-wrapper",
-            start: "top 40%",
+            start: "top 50%",
             end: "top 21%",
             toggleActions: "restart reverse restart reverse",
-            markers: {
-                startColor: "purple",
-                endColor: "red",
-                fontSize: "20px"
-            }
+            // markers: {
+            //     startColor: "purple",
+            //     endColor: "red",
+            //     fontSize: "20px"
+            // }
         }
     })
     Carousel()
@@ -159,13 +162,23 @@ onMounted(() => {
 </script>
 
 <style scoped>
+#work-skills{
+    min-height: fit-content;
+    width: 100vw;
+    background: fixed radial-gradient(circle at center,
+            #242424 0%,
+            #1c1c1c 30%,
+            #171717 60%,
+            #111111 85%,
+            #030303 100%);
+    box-shadow: inset 0 0 100px rgba(0, 0, 0, 0.3);
+}
 .head {
     display: flex;
     justify-content: center;
 }
 
 .work-experience {
-    background-color: #030303;
     min-height: fit-content;
     font-family: "Share Tech Mono", monospace;
 }
@@ -220,9 +233,9 @@ onMounted(() => {
 }
 
 .main-card {
-    background-color: #030303;
-    color: #3b82f6;
-    /* box-shadow: #3b82f6 0px 0px 5px 2px; */
+    /* border: #3b82f6 3px solid; */
+    background: #1C1C1C;
+    color: #67c7eb;
     padding: 1rem;
     border-radius: 10px;
 }
@@ -232,15 +245,16 @@ onMounted(() => {
 }
 
 .work-skill {
-    background-color: #aa0505;
-    color: #3b82f6;
+    background-color: #DAA520;
+    /* box-shadow: inset #DAA520 0 0 5px 5px; */
+    color: #1C1C1C;
     padding: 0.25rem 0.5rem;
     border-radius: 0.25rem;
     font-size: 0.875rem;
 }
 
-.place{
-    color: #aa0505;
+.place {
+    color: #DAA520;
 }
 
 .desc {
@@ -255,7 +269,6 @@ onMounted(() => {
     min-height: 100vh;
     display: flex;
     flex-direction: column;
-    background: #030303;
     align-items: center;
     padding: 1rem;
 }
@@ -291,10 +304,10 @@ onMounted(() => {
 
 .title {
     font-size: 100px;
-    color: #aa0505;
+    color: whitesmoke;
 }
 
-:is(.stack-under,.stack-under-work) {
+:is(.stack-under, .stack-under-work) {
     border: #67c7eb 1px solid;
     width: 100%;
     box-shadow: #67c7eb 0px 0px 5px 2px;
