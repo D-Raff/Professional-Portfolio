@@ -94,7 +94,7 @@ function underline() {
         duration: 0.5,
         scrollTrigger: {
             trigger: ".carousel-wrapper",
-            start: "top 50%",
+            start: "top 60%",
             end: "top 21%",
             toggleActions: "restart reverse restart reverse",
             // markers: {
@@ -108,14 +108,14 @@ function underline() {
         scaleY: '0', stagger: .2, duration: .7, ease: "back", delay: .5,
         scrollTrigger: {
             trigger: ".carousel-wrapper",
-            start: "top 50%",
+            start: "top 60%",
             end: "top 21%",
             toggleActions: "restart reverse restart reverse",
-            // markers: {
-            //     startColor: "purple",
-            //     endColor: "red",
-            //     fontSize: "20px"
-            // }
+            markers: {
+                startColor: "purple",
+                endColor: "red",
+                fontSize: "20px"
+            }
         }
     })
 }
@@ -146,7 +146,7 @@ onMounted(() => {
         ease: "back",
         scrollTrigger: {
             trigger: ".carousel-wrapper",
-            start: "top 50%",
+            start: "top 60%",
             end: "top 21%",
             toggleActions: "restart reverse restart reverse",
             // markers: {
@@ -274,7 +274,7 @@ onMounted(() => {
 }
 
 .skill-info {
-    font-family: Electrolize;
+    font-family: electrolize;
     color: #67c7eb;
     text-align: center;
 }
