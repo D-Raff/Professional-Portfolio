@@ -7,7 +7,7 @@
             <NuxtLink to="/" class="nav-item1">Home</NuxtLink>
             <NuxtLink to="/skills" class="nav-item3">Skills and Experience</NuxtLink>
         </div>
-        <div>
+        <div id="Displayed-page">
             <NuxtPage />
         </div>
         <div class="blur"></div>
@@ -15,10 +15,6 @@
 </template>
 
 <script setup>
-// Import the store. the store is being imported here but used on other pages
-// import { useStore } from '~/stores/skills';
-// import { watchEffect, ref } from 'vue';
-
 
 /*===================== variables =====================*/
 let tl = useGsap.timeline()
@@ -92,10 +88,6 @@ function menu() {
         duration: .15,
         ease: "in"
     })
-    useGsap.to("#Navigation", {
-        height: "200px",
-        width: "200px",
-    })
 }
 
 
@@ -123,8 +115,8 @@ onMounted(() => {
                 ease: "back"
             })
         useGsap.to("#Navigation", {
-            height: "270px",
-            width: "270px",
+            x: -50,
+            y: -50,
             duration: .5,
             ease: "back",
         })
@@ -155,8 +147,8 @@ onMounted(() => {
             ease: "in"
         })
         useGsap.to("#Navigation", {
-            height: "200px",
-            width: "200px",
+            x: 0,
+            y: 0,
         })
         useGsap.to(".blur", {
             backdropFilter: 'blur(0px)',
@@ -184,26 +176,28 @@ onMounted(() => {
     color: red;
 }
 
-.default-layout {
+#default-layout {
     min-height: 100vh;
     width: 100vw;
-    background: #030303;
+    background: #111111;
+    padding: 0;
+    position: relative;
 }
 
 #Navigation {
-    width: 100px;
+    width: 200px;
     aspect-ratio: 1/1;
     border-radius: 50%;
     box-sizing: border-box;
     display: flex;
     justify-content: center;
     align-items: center;
+    text-align: center;
     position: fixed;
-    bottom: 1rem;
-    right: 1rem;
+    bottom: 0;
+    right: 0;
     background: transparent;
     padding: 0;
-    margin: 20px;
     z-index: 1;
 }
 
@@ -226,8 +220,8 @@ onMounted(() => {
     text-decoration: none;
     position: absolute;
     border-radius: 50%;
-    height: 90px !important;
-    width: 90px !important;
+    height: 100px !important;
+    width: 100px !important;
     display: flex;
     justify-content: center;
     align-items: center;
@@ -241,6 +235,21 @@ onMounted(() => {
     position: relative;
     padding: 0;
     z-index: 100;
+    text-align: center;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin: 0;
+}
+
+#Displayed-page {
+    width: 100%;
+    min-height: 100%;
+    background: #030303;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
 }
 
 .blur {

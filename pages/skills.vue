@@ -33,7 +33,8 @@
                 <section class="stack-under"></section>
             </h1>
             <p class="skill-info">
-                With an evergrowing interest in more technologies and languages, I have an ever expanding library of skills.
+                With an evergrowing interest in more technologies and languages, I have an ever expanding library of
+                skills.
             <section>I have beginner - intermediate skills with these languages and tools</section>
             </p>
             <div class="carousel-wrapper container">
@@ -95,7 +96,7 @@ function underline() {
         scrollTrigger: {
             trigger: ".carousel-wrapper",
             start: "top 60%",
-            end: "top 21%",
+            end: "top 15%",
             toggleActions: "restart reverse restart reverse",
             // markers: {
             //     startColor: "purple",
@@ -109,13 +110,13 @@ function underline() {
         scrollTrigger: {
             trigger: ".carousel-wrapper",
             start: "top 60%",
-            end: "top 21%",
+            end: "top 15%",
             toggleActions: "restart reverse restart reverse",
-            markers: {
-                startColor: "purple",
-                endColor: "red",
-                fontSize: "20px"
-            }
+            // markers: {
+            //     startColor: "purple",
+            //     endColor: "red",
+            //     fontSize: "20px"
+            // }
         }
     })
 }
@@ -147,7 +148,7 @@ onMounted(() => {
         scrollTrigger: {
             trigger: ".carousel-wrapper",
             start: "top 60%",
-            end: "top 21%",
+            end: "top 15%",
             toggleActions: "restart reverse restart reverse",
             // markers: {
             //     startColor: "purple",
@@ -162,7 +163,7 @@ onMounted(() => {
 </script>
 
 <style scoped>
-#work-skills{
+#work-skills {
     min-height: fit-content;
     width: 100vw;
     background: fixed radial-gradient(circle at center,
@@ -173,6 +174,7 @@ onMounted(() => {
             #030303 100%);
     box-shadow: inset 0 0 100px rgba(0, 0, 0, 0.3);
 }
+
 .head {
     display: flex;
     justify-content: center;

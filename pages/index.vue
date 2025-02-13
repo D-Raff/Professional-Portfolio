@@ -91,12 +91,12 @@ function equip() {
     height: '49px',
     duration: 2,
   });
-  setTimeout(() => {
-    document.querySelector("#Main").classList.add("display");
-  }, "2200");
-  setTimeout(() => {
-    overlay();
-  }, "2800");
+  // setTimeout(() => {
+  //   document.querySelector("#Main").classList.add("display");
+  // }, "2200");
+  // setTimeout(() => {
+  //   overlay();
+  // }, "2800");
 }
 
 onMounted(() => {
@@ -282,6 +282,9 @@ function overlay() {
   width: 250px;
   height: 200px;
   z-index: 1;
+  justify-content: center;
+  align-items: center;
+  display: flex;
 }
 
 .anim {
@@ -337,9 +340,10 @@ function overlay() {
   position: absolute;
   height: 100%;
   width: 100%;
-  left: 0.2em;
   perspective: 1000px;
   z-index: 1;
+  justify-content: center;
+  align-items: center;
 }
 
 img[alt="chibi-img"] {
@@ -351,8 +355,8 @@ img[alt="helmet"] {
   height: 190px;
   width: 290px;
   position: relative;
-  bottom: 4.2em;
-  right: 0.5em;
+  bottom: 3.6em;
+  right: 1.65em;
   z-index: 4;
   visibility: hidden;
 }
@@ -362,7 +366,7 @@ img[alt="right-a"] {
   width: 30px;
   position: relative;
   top: 8em;
-  left: 5.7em;
+  right: 1.4em;
   z-index: 3;
   visibility: hidden;
 }
@@ -371,8 +375,8 @@ img[alt="left-a"] {
   height: 50px;
   width: 30px;
   position: relative;
-  top: 7.6em;
-  left: 7.5em;
+  top: 8.3em;
+  left: .4em;
   visibility: hidden;
 }
 
@@ -380,8 +384,8 @@ img[alt="armor"] {
   height: 190px;
   width: 450px;
   position: relative;
-  bottom: 12em;
-  right: 5.5em;
+  bottom: 11.3em;
+  right: 6.8em;
   z-index: 2;
   visibility: hidden;
 }
@@ -390,8 +394,8 @@ img[alt="left-l"] {
   height: 40px;
   width: 35px;
   position: relative;
-  bottom: 17.9em;
-  left: 8.7em;
+  /* bottom: 17.9em; */
+  left: 1em;
   z-index: 1;
   visibility: hidden;
 }
@@ -400,8 +404,8 @@ img[alt="right-l"] {
   height: 40px;
   width: 35px;
   position: relative;
-  bottom: 17.9em;
-  left: 4.1em;
+  /* bottom: 17em; */
+  right: 2.4em;
   z-index: 2;
   rotate: -3deg;
   visibility: hidden;
