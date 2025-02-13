@@ -91,12 +91,12 @@ function equip() {
     height: '49px',
     duration: 2,
   });
-  // setTimeout(() => {
-  //   document.querySelector("#Main").classList.add("display");
-  // }, "2200");
-  // setTimeout(() => {
-  //   overlay();
-  // }, "2800");
+  setTimeout(() => {
+    document.querySelector("#Main").classList.add("display");
+  }, "2200");
+  setTimeout(() => {
+    overlay();
+  }, "2800");
 }
 
 onMounted(() => {
@@ -356,7 +356,7 @@ img[alt="helmet"] {
   width: 290px;
   position: relative;
   bottom: 3.6em;
-  right: 1.65em;
+  right: 1.7em;
   z-index: 4;
   visibility: hidden;
 }
@@ -365,8 +365,8 @@ img[alt="right-a"] {
   height: 50px;
   width: 30px;
   position: relative;
-  top: 8em;
-  right: 1.4em;
+  top: 8.3em;
+  right: 1.7em;
   z-index: 3;
   visibility: hidden;
 }
@@ -394,8 +394,8 @@ img[alt="left-l"] {
   height: 40px;
   width: 35px;
   position: relative;
-  /* bottom: 17.9em; */
-  left: 1em;
+  bottom: 17em;
+  left: 1.5em;
   z-index: 1;
   visibility: hidden;
 }
@@ -404,8 +404,8 @@ img[alt="right-l"] {
   height: 40px;
   width: 35px;
   position: relative;
-  /* bottom: 17em; */
-  right: 2.4em;
+  bottom: 16.9em;
+  right: 2.9em;
   z-index: 2;
   rotate: -3deg;
   visibility: hidden;
@@ -527,8 +527,8 @@ img[alt="right-l"] {
 
 .block {
   position: relative;
-  left: 29%;
-  top: 65%;
+  left: 0%;
+  top: 35%;
   width: 40%;
   height: 34%;
   background: transparent;
@@ -541,10 +541,12 @@ img[alt="right-l"] {
 
 @keyframes cover {
   90% {
+    /* background: red; */
     background: #030303;
   }
-
+  
   100% {
+    /* background: red; */
     background: #030303;
   }
 }

@@ -50,6 +50,35 @@
                 </div>
             </div>
         </div>
+        <div id="Badges">
+            <!-- <div class="carousel">
+                <div class="fade"></div>
+                <div class="logo-slide">
+                    <div class="badges" v-for="badge in badges" :key="badge.title">
+                        <img :src="badge.badge" alt="badge" data-badge>
+                    </div>
+                </div>
+                <div class="logo-slide">
+                    <div class="badges" v-for="badge in badges" :key="badge.title">
+                        <img :src="badge.badge" alt="badge" data-badge>
+                    </div>
+                </div>
+                <div class="fade2"></div>
+            </div> -->
+
+            <div class="badge-showcase container-fluid">
+                <div class="badge-wrapper container">
+                    <div class="badges card" v-for="badge in badges" :key="badge.title">
+                        <div class="card-body">
+                            <img :src="badge.badge" alt="badge" data-badge>
+                        </div>
+                        <div class="card-footer">
+                            {{ badge.title }}
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
     </div>
 </template>
 
@@ -59,8 +88,10 @@ import { ref, onMounted } from 'vue'
 const Store = useStore()
 await Store.fetchSkills()
 await Store.fetchWork()
+await Store.fetchBadges()
 let skills = Store.skills
 let work = Store.work
+let badges = Store.badges
 
 const jobCards = ref([])
 
@@ -150,11 +181,6 @@ onMounted(() => {
             start: "top 60%",
             end: "top 15%",
             toggleActions: "restart reverse restart reverse",
-            // markers: {
-            //     startColor: "purple",
-            //     endColor: "red",
-            //     fontSize: "20px"
-            // }
         }
     })
     Carousel()
@@ -268,11 +294,11 @@ onMounted(() => {
 
 #Skills {
     font-family: "Share Tech Mono", monospace;
-    min-height: 100vh;
     display: flex;
     flex-direction: column;
     align-items: center;
     padding: 1rem;
+    margin-block: 100px;
 }
 
 .skill-info {
@@ -313,6 +339,111 @@ onMounted(() => {
     border: #67c7eb 1px solid;
     width: 100%;
     box-shadow: #67c7eb 0px 0px 5px 2px;
+}
+
+/* ############################ Badge Carousel ############################ */
+
+#Badges {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 50vh;
+    width: 100vw;
+    padding-block: 10px;
+    overflow: hidden;
+}
+
+.carousel {
+    width: 70%;
+    height: 250px;
+    color: #67c7eb;
+    overflow: hidden;
+    display: flex;
+    position: relative;
+}
+
+.carousel:before,
+.carousel:after {
+    position: absolute;
+    bottom: 0;
+    width: 50px;
+    height: 250px;
+    z-index: 2;
+    content: "";
+}
+
+.carousel:before {
+    left: 0;
+    background: linear-gradient(to left, rgba(28, 28, 28, 0), #171717);
+
+}
+
+.carousel:after {
+    right: 0;
+    background: linear-gradient(to right, rgba(28, 28, 28, 0), #171717);
+}
+
+.carousel:hover .logo-slide {
+    animation-play-state: paused;
+}
+
+.logo-slide {
+    height: 100%;
+    display: flex;
+    align-items: center;
+    animation: slide infinite 20s linear;
+}
+
+img[data-badge] {
+    height: 200px;
+    margin: 30px
+}
+
+.badge-showcase {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 50vh;
+    width: 100vw;
+}
+
+.badge-wrapper {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 1rem;
+}
+
+.card {
+    background: #1C1C1C;
+    color: #67c7eb;
+    padding: 1rem;
+    border-radius: 10px;
+    box-shadow: inset #67c7eb 0 0 10px 1px;
+    width: 20rem;
+    height: 300px;
+}
+
+.card-body {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.card-footer {
+    color: #67c7eb;
+    text-align: center;
+}
+
+@keyframes slide {
+    from {
+        transform: translateX(0);
+    }
+
+    to {
+        transform: translateX(-100%);
+    }
 }
 
 @media (max-width: 768px) {
