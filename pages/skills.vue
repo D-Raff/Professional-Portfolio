@@ -108,6 +108,31 @@ function underline_work() {
     })
 }
 
+function hover_badge() {
+    useGsap.utils.toArray(".card").forEach(card => {
+        const cardBody = card.querySelector(".card-body");
+
+        if (!cardBody) return; // Ensure .card-body exists inside .card
+
+        card.addEventListener("mouseenter", () => {
+            useGsap.to(cardBody, {
+                top: 0, // Lifting effect
+                duration: 0.5,
+                ease: "back.out(1.7)"
+            });
+        });
+
+        card.addEventListener("mouseleave", () => {
+            useGsap.to(cardBody, {
+                top: "3rem", // Reset position
+                duration: 0.5,
+                ease: "back.out(1.7)"
+            });
+        });
+    });
+}
+
+
 function Carousel() {
     let skillCarousel = document.querySelectorAll(".skill-carousel")
     let skillCarouselWrapper = document.querySelector(".skill-carousel")
@@ -129,11 +154,6 @@ function underline() {
             start: "top 60%",
             end: "top 15%",
             toggleActions: "restart reverse restart reverse",
-            // markers: {
-            //     startColor: "purple",
-            //     endColor: "red",
-            //     fontSize: "20px"
-            // }
         }
     })
     useGsap.from(".skill-info", {
@@ -143,11 +163,6 @@ function underline() {
             start: "top 60%",
             end: "top 15%",
             toggleActions: "restart reverse restart reverse",
-            // markers: {
-            //     startColor: "purple",
-            //     endColor: "red",
-            //     fontSize: "20px"
-            // }
         }
     })
 }
@@ -184,6 +199,7 @@ onMounted(() => {
         }
     })
     Carousel()
+    hover_badge()
 })
 
 </script>
@@ -403,37 +419,57 @@ img[data-badge] {
     display: flex;
     justify-content: center;
     align-items: center;
-    min-height: 50vh;
+    min-height: 100vh;
     width: 100vw;
+    position: relative;
+    padding: 20px;
 }
 
 .badge-wrapper {
     display: flex;
-    justify-content: center;
+    justify-content: space-evenly;
     align-items: center;
     flex-wrap: wrap;
-    gap: 1rem;
+    gap: 5rem;
+    padding: 2rem;
+    position: relative;
 }
 
 .card {
     background: #1C1C1C;
     color: #67c7eb;
-    padding: 1rem;
-    border-radius: 10px;
-    box-shadow: inset #67c7eb 0 0 10px 1px;
+    border: none;
     width: 20rem;
     height: 300px;
+    position: relative;
+    align-items: center;
+    background: transparent;
 }
 
 .card-body {
     display: flex;
     justify-content: center;
     align-items: center;
+    border-radius: 10px;
+    box-shadow: inset #67c7eb 0 0 10px 1px;
+    position: relative;
+    top: 3rem;
+    width: 100%;
+    z-index: 1;
+    background: #242424;
 }
 
 .card-footer {
+    display: flex;
+    justify-content: center;
+    align-items: center;
     color: #67c7eb;
     text-align: center;
+    border: 3px solid;
+    width: 100%;
+    z-index: 0;
+    border-radius: 10px;
+    margin: 2px;
 }
 
 @keyframes slide {

@@ -198,7 +198,7 @@ onMounted(() => {
     right: 0;
     background: transparent;
     padding: 0;
-    z-index: 1;
+    z-index: 100;
 }
 
 #main-nav {
@@ -259,5 +259,6 @@ onMounted(() => {
     position: fixed;
     top: 0;
     display: none;
+    z-index: 99 !important;
 }
 </style>
