@@ -8,7 +8,7 @@
             </div>
             <div class="container mx-auto px-4">
                 <div class="experience-timeline">
-                    <div v-for="(job, index) in work" :key="place" class="experience-item"
+                    <div v-for="(job, index) in work" :key="index" class="experience-item"
                         :class="{ 'right': index % 2 === 0 }" ref="jobCards">
                         <div
                             class="main-card p-6 max-w-md mx-auto transform hover:scale-105 transition-transform duration-300">
@@ -27,44 +27,6 @@
                 </div>
             </div>
         </section>
-        <div id="Skills" class="container-fluid">
-            <h1 class="title">
-                Tech Stack
-                <section class="stack-under"></section>
-            </h1>
-            <p class="skill-info">
-                With an evergrowing interest in more technologies and languages, I have an ever expanding library of
-                skills.
-            <section>I have beginner - intermediate skills with these languages and tools</section>
-            </p>
-            <div class="carousel-wrapper container">
-                <div class="skill-carousel">
-                    <div v-for="skill in skills" :key="skill.title">
-                        <img :src="skill.logo" alt="skill-logo" class="skill-img">
-                    </div>
-                </div>
-                <div class="skill-carousel">
-                    <div v-for="skill in skills" :key="skill.title">
-                        <img :src="skill.logo" alt="skill-logo" class="skill-img">
-                    </div>
-                </div>
-            </div>
-        </div>
-        <div id="Badges">
-
-            <div class="badge-showcase container-fluid">
-                <div class="badge-wrapper container">
-                    <div class="badges card" v-for="badge in badges" :key="badge.title">
-                        <div class="card-body">
-                            <img :src="badge.badge" alt="badge" data-badge>
-                        </div>
-                        <div class="card-footer">
-                            {{ badge.title }}
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
     </div>
 </template>
 
@@ -72,12 +34,8 @@
 // skillstore is being imported in the default layout which is loaded first
 import { ref, onMounted } from 'vue'
 const Store = useStore()
-await Store.fetchSkills()
 await Store.fetchWork()
-await Store.fetchBadges()
-let skills = Store.skills
 let work = Store.work
-let badges = Store.badges
 
 const jobCards = ref([])
 
@@ -94,64 +52,9 @@ function underline_work() {
     })
 }
 
-function hover_badge() {
-    useGsap.utils.toArray(".card").forEach(card => {
-        const cardBody = card.querySelector(".card-body");
-
-        if (!cardBody) return; // Ensure .card-body exists inside .card
-
-        card.addEventListener("mouseenter", () => {
-            useGsap.to(cardBody, {
-                top: 0, // Lifting effect
-                duration: 0.5,
-                ease: "back.out(1.7)"
-            });
-        });
-
-        card.addEventListener("mouseleave", () => {
-            useGsap.to(cardBody, {
-                top: "3rem", // Reset position
-                duration: 0.5,
-                ease: "back.out(1.7)"
-            });
-        });
-    });
-}
 
 
-function Carousel() {
-    let skillCarousel = document.querySelectorAll(".skill-carousel")
-    let skillCarouselWrapper = document.querySelector(".skill-carousel")
-    useGsap.to(skillCarousel, {
-        x: (skillCarouselWrapper.clientWidth) * -1,
-        duration: 18,
-        repeat: -1,
-        ease: 'none',
-    })
-}
 
-function underline() {
-    useGsap.from(".stack-under", {
-        scaleX: 0,
-        stagger: 0.2,
-        duration: 0.5,
-        scrollTrigger: {
-            trigger: ".carousel-wrapper",
-            start: "top 60%",
-            end: "top 15%",
-            toggleActions: "restart reverse restart reverse",
-        }
-    })
-    useGsap.from(".skill-info", {
-        scaleY: '0', stagger: .2, duration: .7, ease: "back", delay: .5,
-        scrollTrigger: {
-            trigger: ".carousel-wrapper",
-            start: "top 60%",
-            end: "top 15%",
-            toggleActions: "restart reverse restart reverse",
-        }
-    })
-}
 
 onMounted(() => {
     underline_work()
@@ -170,22 +73,6 @@ onMounted(() => {
             delay: index * 0.2
         })
     })
-    underline()
-    useGsap.from(".skill-img", {
-        y: 200,
-        stagger: 0.2,
-        duration: 0.5,
-        delay: .5,
-        ease: "back",
-        scrollTrigger: {
-            trigger: ".carousel-wrapper",
-            start: "top 60%",
-            end: "top 15%",
-            toggleActions: "restart reverse restart reverse",
-        }
-    })
-    Carousel()
-    hover_badge()
 })
 
 </script>
@@ -293,46 +180,6 @@ onMounted(() => {
     font-family: electrolize;
 }
 
-/* ===================== skills section ===================== */
-
-#Skills {
-    font-family: "Share Tech Mono", monospace;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    padding: 1rem;
-    margin-block: 100px;
-}
-
-.skill-info {
-    font-family: electrolize;
-    color: #67c7eb;
-    text-align: center;
-}
-
-.carousel-wrapper {
-    display: flex;
-    overflow: hidden;
-    width: fit-content;
-    height: fit-content;
-}
-
-.skill-carousel {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-}
-
-.skill-img {
-    height: 150px;
-    aspect-ratio: 1/1;
-    margin: 20px;
-    object-fit: contain;
-    box-shadow: inset #67c7eb 0 0 10px 1px;
-    border-radius: 10px;
-    padding: 10px;
-}
-
 .title {
     font-size: 100px;
     color: whitesmoke;
@@ -342,131 +189,6 @@ onMounted(() => {
     border: #67c7eb 1px solid;
     width: 100%;
     box-shadow: #67c7eb 0px 0px 5px 2px;
-}
-
-/* ############################ Badge Carousel ############################ */
-
-#Badges {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    min-height: 50vh;
-    width: 100vw;
-    padding-block: 10px;
-    overflow: hidden;
-}
-
-.carousel {
-    width: 70%;
-    height: 250px;
-    color: #67c7eb;
-    overflow: hidden;
-    display: flex;
-    position: relative;
-}
-
-.carousel:before,
-.carousel:after {
-    position: absolute;
-    bottom: 0;
-    width: 50px;
-    height: 250px;
-    z-index: 2;
-    content: "";
-}
-
-.carousel:before {
-    left: 0;
-    background: linear-gradient(to left, rgba(28, 28, 28, 0), #171717);
-
-}
-
-.carousel:after {
-    right: 0;
-    background: linear-gradient(to right, rgba(28, 28, 28, 0), #171717);
-}
-
-.carousel:hover .logo-slide {
-    animation-play-state: paused;
-}
-
-.logo-slide {
-    height: 100%;
-    display: flex;
-    align-items: center;
-    animation: slide infinite 20s linear;
-}
-
-img[data-badge] {
-    height: 200px;
-    margin: 30px
-}
-
-.badge-showcase {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    min-height: 100vh;
-    width: 100vw;
-    position: relative;
-    padding: 20px;
-}
-
-.badge-wrapper {
-    display: flex;
-    justify-content: space-evenly;
-    align-items: center;
-    flex-wrap: wrap;
-    gap: 5rem;
-    padding: 2rem;
-    position: relative;
-}
-
-.card {
-    background: #1C1C1C;
-    color: #67c7eb;
-    border: none;
-    width: 20rem;
-    height: 300px;
-    position: relative;
-    align-items: center;
-    background: transparent;
-}
-
-.card-body {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    border-radius: 10px;
-    box-shadow: inset #67c7eb 0 0 10px 1px;
-    position: relative;
-    top: 3rem;
-    width: 100%;
-    z-index: 1;
-    background: #242424;
-}
-
-.card-footer {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    color: #67c7eb;
-    text-align: center;
-    border: 3px solid;
-    width: 100%;
-    z-index: 0;
-    border-radius: 10px;
-    margin: 2px;
-}
-
-@keyframes slide {
-    from {
-        transform: translateX(0);
-    }
-
-    to {
-        transform: translateX(-100%);
-    }
 }
 
 @media (max-width: 768px) {

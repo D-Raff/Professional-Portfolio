@@ -122,6 +122,7 @@ onMounted(() => {
                 ease: "power2.out"
             })
         })
+        
     })
     
     // Active link indicator

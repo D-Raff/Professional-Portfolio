@@ -40,13 +40,16 @@
 </template>
 
 <script setup>
-import { nextTick } from 'vue'
+import { nextTick, onUnmounted } from 'vue'
 
 const Store = useStore()
 await Store.fetchSkills()
 let skills = Store.skills
 await Store.fetchBadges()
 let badges = Store.badges
+
+// Store ScrollTrigger instances for cleanup
+let scrollTriggers = []
 
 function Carousel() {
     let skillCarousel = document.querySelectorAll(".skill-carousel")
@@ -63,26 +66,47 @@ function Carousel() {
 }
 
 function underline() {
-    useGsap.from(".stack-under", {
-        scaleX: 0,
-        stagger: 0.2,
-        duration: 0.5,
-        scrollTrigger: {
-            trigger: ".carousel-wrapper",
-            start: "top 60%",
-            end: "top 15%",
-            toggleActions: "restart reverse restart reverse",
+    try {
+        // Register ScrollTrigger plugin
+        const { ScrollTrigger } = useGsap
+        useGsap.registerPlugin(ScrollTrigger)
+        
+        const stackUnderTween = useGsap.to(".stack-under", {
+            scaleX: 1,
+            stagger: 0.2,
+            duration: 0.5,
+            scrollTrigger: {
+                trigger: ".carousel-wrapper",
+                start: "top 60%",
+                end: "top 15%",
+                toggleActions: "restart reverse restart reverse",
+            }
+        })
+        
+        const skillInfoTween = useGsap.to(".skill-info", {
+            scaleY: 1, 
+            stagger: .2, 
+            duration: .7, 
+            ease: "back", 
+            delay: .5,
+            scrollTrigger: {
+                trigger: ".carousel-wrapper",
+                start: "top 60%",
+                end: "top 15%",
+                toggleActions: "restart reverse restart reverse",
+            }
+        })
+        
+        // Store ScrollTrigger instances for cleanup
+        if (stackUnderTween.scrollTrigger) {
+            scrollTriggers.push(stackUnderTween.scrollTrigger)
         }
-    })
-    useGsap.from(".skill-info", {
-        scaleY: '0', stagger: .2, duration: .7, ease: "back", delay: .5,
-        scrollTrigger: {
-            trigger: ".carousel-wrapper",
-            start: "top 60%",
-            end: "top 15%",
-            toggleActions: "restart reverse restart reverse",
+        if (skillInfoTween.scrollTrigger) {
+            scrollTriggers.push(skillInfoTween.scrollTrigger)
         }
-    })
+    } catch (error) {
+        console.error('SkillsComponent: Error in underline function:', error)
+    }
 }
 
 function hover_badge() {
@@ -115,29 +139,71 @@ onMounted(async () => {
 
     // Add a small delay to ensure everything is rendered
     setTimeout(() => {
-        // Only run animations if data is available
-        if (skills && skills.length > 0) {
-            underline()
-            Carousel()
-
-            // Skill images animation
-            useGsap.from(".skill-img", {
-                y: 200,
-                stagger: 0.2,
-                duration: 0.5,
-                delay: .5,
-                ease: "back",
-                scrollTrigger: {
-                    trigger: ".carousel-wrapper",
-                    start: "top 60%",
-                    end: "top 15%",
-                    toggleActions: "restart reverse restart reverse",
+        try {
+            // Only run animations if data is available
+            if (skills && skills.length > 0) {
+                // Register ScrollTrigger plugin
+                const { ScrollTrigger } = useGsap
+                useGsap.registerPlugin(ScrollTrigger)
+                
+                // Check if elements exist before animating
+                const carouselWrapper = document.querySelector(".carousel-wrapper")
+                
+                if (!carouselWrapper) {
+                    return
                 }
-            })
+                
+                underline()
+                Carousel()
+
+                // Skill images animation
+                const skillImgTween = useGsap.to(".skill-img", {
+                    y: 0,
+                    opacity: 1,
+                    stagger: 0.2,
+                    duration: 0.5,
+                    delay: .5,
+                    ease: "back",
+                    scrollTrigger: {
+                        trigger: ".carousel-wrapper",
+                        start: "top 60%",
+                        end: "top 15%",
+                        toggleActions: "restart reverse restart reverse",
+                    }
+                })
+                
+                // Store ScrollTrigger instance for cleanup
+                if (skillImgTween.scrollTrigger) scrollTriggers.push(skillImgTween.scrollTrigger)
+                
+                // Refresh ScrollTrigger to ensure proper initialization
+                if (ScrollTrigger && ScrollTrigger.refresh) {
+                    ScrollTrigger.refresh()
+                }
+            }
+        } catch (error) {
+            console.error('SkillsComponent: Error initializing animations:', error)
         }
     }, 100)
 
     hover_badge()
+})
+
+// Cleanup ScrollTrigger instances when component is unmounted
+onUnmounted(() => {
+    try {
+        const { ScrollTrigger } = useGsap
+        scrollTriggers.forEach(trigger => {
+            if (trigger && trigger.kill) {
+                trigger.kill()
+            }
+        })
+        scrollTriggers = []
+        if (ScrollTrigger && ScrollTrigger.refresh) {
+            ScrollTrigger.refresh()
+        }
+    } catch (error) {
+        console.error('SkillsComponent: Error during cleanup:', error)
+    }
 })
 </script>
 
@@ -192,6 +258,18 @@ onMounted(async () => {
     border: #67c7eb 1px solid;
     width: 100%;
     box-shadow: #67c7eb 0px 0px 5px 2px;
+    transform: scaleX(0);
+    transform-origin: left;
+}
+
+.skill-info {
+    transform: scaleY(0);
+    transform-origin: top;
+}
+
+.skill-img {
+    transform: translateY(200px);
+    opacity: 0;
 }
 
 /* ############################ Badge Section ############################ */
