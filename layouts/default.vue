@@ -16,8 +16,8 @@
                         <span class="link-text">HOME</span>
                         <div class="link-glow"></div>
                     </NuxtLink>
-                    <NuxtLink to="/skills" class="nav-link" data-text="SKILLS">
-                        <span class="link-text">SKILLS</span>
+                    <NuxtLink to="/work-projects" class="nav-link" data-text="WORK & PROJECTS">
+                        <span class="link-text">WORK & PROJECTS</span>
                         <div class="link-glow"></div>
                     </NuxtLink>
                 </div>

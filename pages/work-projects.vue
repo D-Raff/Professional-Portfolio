@@ -1,30 +1,37 @@
 <template>
-    <div id="work-skills">
+    <div id="work-projects">
         <section class="work-experience py-16">
             <div class="head">
-                <h1 class="title">Work Experience
+                <h1 class="title">Work & Projects
                     <section class="stack-under-work"></section>
                 </h1>
             </div>
             <div class="container mx-auto px-4">
                 <div class="experience-timeline">
-                    <div v-for="(job, index) in work" :key="index" class="experience-item"
+                    <div v-for="(item, index) in workProjects" :key="index" class="experience-item"
                         :class="{ 'right': index % 2 === 0 }" ref="jobCards">
                         <div
                             class="main-card p-6 max-w-md mx-auto transform hover:scale-105 transition-transform duration-300">
-                            <span class="timeframe text-sm text-gray-500">{{ job.year }}</span>
-                            <h3 class="place text-xl font-semibold mt-2">{{ job.place }}
+                            <span class="timeframe text-sm text-gray-500">{{ item.year }}</span>
+                            <h3 class="place text-xl font-semibold mt-2">{{ item.place }}
                                 <section class="stack-under-work"></section>
                             </h3>
-                            <h4 class="desc mb-3">{{ job.description }}</h4>
+                            <h4 class="desc mb-3">{{ item.description }}</h4>
                             <div class="skill-wrapper d-flex flex-wrap">
-                                <span v-for="(skill, skillIndex) in job.skills" :key="skillIndex" class="work-skill">
+                                <span v-for="(skill, skillIndex) in item.skills" :key="skillIndex" class="work-skill">
                                     {{ skill }}
                                 </span>
                             </div>
                         </div>
                     </div>
                 </div>
+            </div>
+        </section>
+        <section class="projects py-16">
+            <div class="head">
+                <h1 class="title">Projects
+                    <section class="stack-under-projects"></section>
+                </h1>
             </div>
         </section>
     </div>
@@ -35,11 +42,11 @@
 import { ref, onMounted } from 'vue'
 const Store = useStore()
 await Store.fetchWork()
-let work = Store.work
+let workProjects = Store.work
+await Store.fetchProjects()
+let projects = Store.projects
 
 const jobCards = ref([])
-
-
 
 // create a variable for the timeline function of gsap
 // const tl = useGsap.timeline()
@@ -51,10 +58,6 @@ function underline_work() {
         duration: 0.5,
     })
 }
-
-
-
-
 
 onMounted(() => {
     underline_work()
@@ -78,7 +81,7 @@ onMounted(() => {
 </script>
 
 <style scoped>
-#work-skills {
+#work-projects {
     min-height: fit-content;
     padding-top: 80px;
     width: 100vw;
@@ -185,7 +188,7 @@ onMounted(() => {
     color: whitesmoke;
 }
 
-:is(.stack-under, .stack-under-work) {
+:is(.stack-under, .stack-under-work, .stack-under-projects) {
     border: #67c7eb 1px solid;
     width: 100%;
     box-shadow: #67c7eb 0px 0px 5px 2px;
