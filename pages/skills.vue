@@ -51,20 +51,6 @@
             </div>
         </div>
         <div id="Badges">
-            <!-- <div class="carousel">
-                <div class="fade"></div>
-                <div class="logo-slide">
-                    <div class="badges" v-for="badge in badges" :key="badge.title">
-                        <img :src="badge.badge" alt="badge" data-badge>
-                    </div>
-                </div>
-                <div class="logo-slide">
-                    <div class="badges" v-for="badge in badges" :key="badge.title">
-                        <img :src="badge.badge" alt="badge" data-badge>
-                    </div>
-                </div>
-                <div class="fade2"></div>
-            </div> -->
 
             <div class="badge-showcase container-fluid">
                 <div class="badge-wrapper container">
@@ -207,6 +193,7 @@ onMounted(() => {
 <style scoped>
 #work-skills {
     min-height: fit-content;
+    padding-top: 80px;
     width: 100vw;
     background: fixed radial-gradient(circle at center,
             #242424 0%,

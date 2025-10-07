@@ -60,15 +60,187 @@
             <p>Hobbies include hiking, gaming, sketching, and coding.</p>
           </div>
         </div>
+        <SkillsComponent />
       </div>
     </div>
   </div>
 </template>
 
 <script setup>
-// Equip animation
+import { ref, onMounted, onUnmounted } from 'vue'
 
+// Check if animation has already been played in this session
+const hasAnimationPlayed = ref(false)
+
+// Reset animation state when component is unmounted
+onUnmounted(() => {
+  resetAnimationState()
+})
+
+// Check sessionStorage on component mount
+onMounted(() => {
+  // Always reset the animation state first
+  resetAnimationState()
+  
+  const animationPlayed = sessionStorage.getItem('mainAnimationPlayed')
+  
+  if (!animationPlayed) {
+    // First time loading - play the full animation sequence
+    hasAnimationPlayed.value = false
+    playInitialAnimations()
+  } else {
+    // Animation already played - skip to main content
+    hasAnimationPlayed.value = true
+    skipToMainContent()
+  }
+})
+
+function resetAnimationState() {
+  // Reset all animation classes and styles
+  const elementsToReset = [
+    '.right-a', '.left-a', '.right-l', '.left-l', '.armor', '[data-helmet]',
+    '.block', '.anim', '.spin', '.background', '.head', '.welcome', '.Home',
+    '#Main', '.open', '.open2'
+  ]
+  
+  elementsToReset.forEach(selector => {
+    const element = document.querySelector(selector)
+    if (element) {
+      // Remove all animation classes
+      element.className = element.className.replace(/equip-\w+|armor-equip|helm-equip|cover|arc|flux|expand|lift-anim|shrink|scroll|display/g, '')
+      
+      // Reset specific styles
+      if (selector === '#Main') {
+        element.style.transform = 'translateY(100vh)'
+        element.style.display = 'none'
+      }
+      if (selector === '.open' || selector === '.open2') {
+        element.style.transform = 'translateX(0)'
+      }
+    }
+  })
+}
+
+function playInitialAnimations() {
+  // Ensure landing section is visible
+  const landingSection = document.querySelector(".Home")
+  if (landingSection) {
+    landingSection.style.display = "block"
+  }
+  
+  // Ensure main section is hidden initially
+  const mainSection = document.querySelector("#Main")
+  if (mainSection) {
+    mainSection.style.display = "none"
+  }
+  
+  // Hide split divs initially
+  const openDivs = document.querySelectorAll(".open, .open2")
+  openDivs.forEach(div => {
+    div.style.display = "block"
+  })
+  
+  useGsap.from(".landing", {
+    opacity: 0,
+    duration: 1,
+  });
+  useGsap.from(".Animation", {
+    x: 500,
+    duration: 1,
+    delay: 0.5,
+  });
+  useGsap.from(".activate", {
+    x: 200,
+    duration: 1,
+    delay: 0.8,
+  });
+}
+
+function skipToMainContent() {
+  // Hide the landing section completely
+  const landingSection = document.querySelector(".Home")
+  if (landingSection) {
+    landingSection.style.display = "none"
+  }
+  
+  // Immediately show the main content without animation
+  const mainSection = document.querySelector("#Main")
+  if (mainSection) {
+    mainSection.classList.add("display");
+    mainSection.style.transform = "translateY(0)";
+    mainSection.style.display = "flex";
+  }
+  
+  // Hide the split divs
+  const openDivs = document.querySelectorAll(".open, .open2")
+  openDivs.forEach(div => {
+    div.style.display = "none"
+  })
+  
+  // Show navigation immediately
+  useGsap.to(".stark-navigation", {
+    opacity: 1,
+    y: 0,
+    visibility: "visible",
+    duration: 0.8,
+    ease: "power2.out"
+  });
+  
+  // Start logo animations
+  useGsap.to('.logo-core', {
+    scale: 1.1,
+    duration: 2,
+    ease: "power2.inOut",
+    yoyo: true,
+    repeat: -1
+  });
+
+  useGsap.to('.logo-ring', {
+    rotation: 360,
+    duration: 8,
+    ease: "none",
+    repeat: -1
+  });
+
+  // Show about section immediately
+  useGsap.from(".square", {
+    x: -800,
+    duration: 1,
+  });
+  useGsap.from(".about-img", {
+    x: -400,
+    duration: 1,
+  });
+  useGsap.from(".name-head", {
+    x: "20vw",
+    duration: 1,
+  });
+  useGsap.from(".square2", {
+    x: 800,
+    duration: 1,
+  });
+  useGsap.from(".info-text", {
+    x: 400,
+    duration: 1,
+  });
+}
+
+// Function to reset animation (for testing - can be called from browser console)
+function resetAnimation() {
+  sessionStorage.removeItem('mainAnimationPlayed')
+  location.reload()
+}
+
+// Make resetAnimation available globally for testing
+if (process.client) {
+  window.resetAnimation = resetAnimation
+}
+
+// Equip animation
 function equip() {
+  // Mark animation as played in session storage
+  sessionStorage.setItem('mainAnimationPlayed', 'true')
+  
   document.querySelector(".right-a").classList.add("equip-ra");
   document.querySelector(".left-a").classList.add("equip-la");
   document.querySelector(".right-l").classList.add("equip-rl");
@@ -99,23 +271,6 @@ function equip() {
   }, "2800");
 }
 
-onMounted(() => {
-  useGsap.from(".landing", {
-    opacity: 0,
-    duration: 1,
-  });
-  useGsap.from(".Animation", {
-    x: 500,
-    duration: 1,
-    delay: 0.5,
-  });
-  useGsap.from(".activate", {
-    x: 200,
-    duration: 1,
-    delay: 0.8,
-  });
-});
-
 function overlay() {
   useGsap.to(".open", {
     duration: 0.5,
@@ -137,6 +292,33 @@ function overlay() {
     x: "50vw",
     delay: 1.2,
   });
+  // Show navigation after open1 and open2 animations complete (2.2 seconds)
+  useGsap.to(".stark-navigation", {
+    opacity: 1,
+    y: 0,
+    visibility: "visible",
+    duration: 0.8,
+    delay: 2.2,
+    ease: "power2.out"
+  });
+  // Start logo animations after nav appears
+  useGsap.to('.logo-core', {
+    scale: 1.1,
+    duration: 2,
+    ease: "power2.inOut",
+    yoyo: true,
+    repeat: -1,
+    delay: 2.2
+  });
+
+  useGsap.to('.logo-ring', {
+    rotation: 360,
+    duration: 8,
+    ease: "none",
+    repeat: -1,
+    delay: 2.2
+  });
+
   useGsap.from(".square", {
     x: -800,
     duration: 1,
@@ -319,8 +501,6 @@ function overlay() {
 }
 
 .flux {
-  /* height: 49px;
-  width: 49px; */
   animation: flux 0.15s linear infinite 1s;
 }
 
@@ -544,7 +724,7 @@ img[alt="right-l"] {
     /* background: red; */
     background: #030303;
   }
-  
+
   100% {
     /* background: red; */
     background: #030303;
@@ -651,6 +831,7 @@ img[alt="right-l"] {
   width: 100%;
   color: #67c7eb;
   display: flex;
+  flex-direction: column;
   justify-content: center;
   font-family: "Electrolize", sans-serif;
 }
