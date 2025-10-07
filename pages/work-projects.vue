@@ -87,6 +87,7 @@ onMounted(() => {
             #111111 85%,
             #030303 100%);
     box-shadow: inset 0 0 100px rgba(0, 0, 0, 0.3);
+    overflow: hidden;
 }
 
 .head {
