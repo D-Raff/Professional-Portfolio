@@ -28,17 +28,12 @@
             </div>
         </section>
         <section class="projects py-16">
-            <div class="head">
-                <h1 class="title">Projects
-                    <section class="stack-under-projects"></section>
-                </h1>
-            </div>
+            <ProjectCardComponent />
         </section>
     </div>
 </template>
 
 <script setup>
-// skillstore is being imported in the default layout which is loaded first
 import { ref, onMounted } from 'vue'
 const Store = useStore()
 await Store.fetchWork()
@@ -92,6 +87,7 @@ onMounted(() => {
             #111111 85%,
             #030303 100%);
     box-shadow: inset 0 0 100px rgba(0, 0, 0, 0.3);
+    overflow: hidden;
 }
 
 .head {
@@ -213,5 +209,9 @@ onMounted(() => {
         margin-left: 0;
     }
 
+}
+
+.projects{
+    min-height: 50vh;
 }
 </style>
