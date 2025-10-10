@@ -48,13 +48,9 @@
               <h2 class="name-head">Damon Raffels</h2>
               <div class="underline"></div>
               <p class="pers-info">
-                A versatile developer skilled in both mechanics and fullstack web
-                development, with a certificate from Life Choices Coding Academy.
-                Proficient in HTML, CSS, Bootstrap, JavaScript, Vue.js, Node.js,
-                and MySQL, complemented by badges in Scrum, Cisco Networking, and
-                Python Essentials. Past roles provided experience in engine
-                rebuilding, overhauling, and inventory management, along with
-                strong communication and conflict resolution skills.
+                <span v-for="(paragraph, index) in about" :key="index">
+                  {{ paragraph }}<br v-if="index < about.length - 1">
+                </span>
               </p>
             </div>
             <p>Hobbies include hiking, gaming, sketching, and coding.</p>
@@ -68,6 +64,12 @@
 
 <script setup>
 import { ref, onMounted, onUnmounted } from 'vue'
+
+const Store = useStore()
+await Store.fetchAbout()
+let about = Store.about
+
+console.log('About data:', about)
 
 // Check if animation has already been played in this session
 const hasAnimationPlayed = ref(false)
@@ -431,6 +433,7 @@ function overlay() {
 
 .pers-info {
   color: #ffe3e3;
+  margin: 0;
 }
 
 /* main css */
@@ -907,7 +910,7 @@ h2 {
 
 .square2 {
   background-color: #948787;
-  height: 350px;
+  height: fit-content;
   width: 50%;
   position: absolute;
   z-index: -1;
