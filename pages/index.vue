@@ -69,8 +69,6 @@ const Store = useStore()
 await Store.fetchAbout()
 let about = Store.about
 
-console.log('About data:', about)
-
 // Check if animation has already been played in this session
 const hasAnimationPlayed = ref(false)
 
@@ -113,8 +111,8 @@ function resetAnimationState() {
       
       // Reset specific styles
       if (selector === '#Main') {
-        element.style.transform = 'translateY(100vh)'
-        element.style.display = 'none'
+        element.style.transform = 'none'
+        element.style.display = 'flex'
       }
       if (selector === '.open' || selector === '.open2') {
         element.style.transform = 'translateX(0)'
@@ -130,10 +128,10 @@ function playInitialAnimations() {
     landingSection.style.display = "block"
   }
   
-  // Ensure main section is hidden initially
+  // Ensure main section is visible but positioned below
   const mainSection = document.querySelector("#Main")
   if (mainSection) {
-    mainSection.style.display = "none"
+    mainSection.style.display = "flex"
   }
   
   // Hide split divs initially
@@ -352,6 +350,7 @@ function overlay() {
 <style scoped>
 #content {
   display: flex;
+  flex-direction: column;
   width: 100vw;
   overflow-x: hidden;
 }
@@ -814,10 +813,8 @@ img[alt="right-l"] {
   width: 100vw;
   background: #030303;
   overflow-x: hidden;
-  position: absolute;
-  transform: translateY(100vh);
-  display: none;
-  /* display: flex; */
+  position: relative;
+  display: flex;
 }
 
 .display {

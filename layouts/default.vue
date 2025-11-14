@@ -12,14 +12,14 @@
                 </div>
                 
                 <div class="nav-links">
-                    <NuxtLink to="/" class="nav-link" data-text="HOME">
+                    <a href="#home" class="nav-link" data-text="HOME" @click.prevent="scrollToSection('home')">
                         <span class="link-text">HOME</span>
                         <div class="link-glow"></div>
-                    </NuxtLink>
-                    <NuxtLink to="/work-projects" class="nav-link" data-text="WORK & PROJECTS">
+                    </a>
+                    <a href="#work-projects" class="nav-link" data-text="WORK & PROJECTS" @click.prevent="scrollToSection('work-projects')">
                         <span class="link-text">WORK & PROJECTS</span>
                         <div class="link-glow"></div>
-                    </NuxtLink>
+                    </a>
                 </div>
                 
                 <div class="nav-indicator">
@@ -28,33 +28,79 @@
             </div>
         </nav>  
         <div id="Displayed-page">
-            <NuxtPage />
+            <div id="home">
+                <IndexPage />
+            </div>
+            <div id="work-projects">
+                <WorkProjectsPage />
+            </div>
         </div>
     </div>
 </template>
 
 <script setup>
+import IndexPage from '~/pages/index.vue'
+import WorkProjectsPage from '~/pages/work-projects.vue'
 
 /*===================== Navigation Animations =====================*/
 // let tl = useGsap.timeline()
 
-onMounted(() => {
-    // Check if we're on the index page - if not, show navigation immediately
-    const route = useRoute()
-    if (route.path !== '/') {
-        const nav = document.querySelector('.stark-navigation')
-        if (nav) {
-            nav.style.opacity = '1'
-            nav.style.transform = 'translateY(0)'
-            nav.style.visibility = 'visible'
-            nav.style.borderBottom = '1px solid rgba(52, 97, 232, 0.3)'
+// Active link indicator function
+function updateActiveIndicator() {
+    // Find active link based on scroll position
+    const sections = ['home', 'work-projects']
+    let activeSection = 'home'
+    
+    sections.forEach(sectionId => {
+        const section = document.getElementById(sectionId)
+        if (section) {
+            const rect = section.getBoundingClientRect()
+            if (rect.top <= 200 && rect.bottom >= 200) {
+                activeSection = sectionId
+            }
+        }
+    })
+    
+    const activeLink = document.querySelector(`.nav-link[href="#${activeSection}"]`)
+    const indicatorLine = document.querySelector('.indicator-line')
+    
+    if (activeLink && indicatorLine) {
+        // Update active class
+        document.querySelectorAll('.nav-link').forEach(link => {
+            link.classList.remove('active')
+        })
+        activeLink.classList.add('active')
+        
+        const linkRect = activeLink.getBoundingClientRect()
+        const navRect = document.querySelector('.nav-links')?.getBoundingClientRect()
+        if (navRect) {
+            const offset = linkRect.left - navRect.left + (linkRect.width / 2)
+            
+            useGsap.to(indicatorLine, {
+                x: offset - 30, // Center the indicator
+                duration: 0.5,
+                ease: "power2.out"
+            })
         }
     }
-    
+}
+
+// Function to scroll to sections smoothly
+function scrollToSection(sectionId) {
+    const section = document.getElementById(sectionId)
+    if (section) {
+        section.scrollIntoView({ behavior: 'smooth', block: 'start' })
+        // Update active link indicator after a short delay to allow scroll to complete
+        setTimeout(() => {
+            updateActiveIndicator()
+        }, 100)
+    }
+}
+
+onMounted(() => {
     // Initialize navigation animations
     const navLinks = document.querySelectorAll('.nav-link')
     const brandLogo = document.querySelector('.brand-logo')
-    const indicatorLine = document.querySelector('.indicator-line')
     
     // Brand logo hover effects
     if (brandLogo) {
@@ -84,7 +130,7 @@ onMounted(() => {
         
         // Make brand logo clickable to go home
         brandLogo.addEventListener('click', () => {
-            navigateTo('/')
+            scrollToSection('home')
         })
         
         // Add cursor pointer style
@@ -125,24 +171,12 @@ onMounted(() => {
         
     })
     
-    // Active link indicator
-    const updateActiveIndicator = () => {
-        const activeLink = document.querySelector('.nav-link.router-link-exact-active')
-        if (activeLink) {
-            const linkRect = activeLink.getBoundingClientRect()
-            const navRect = document.querySelector('.nav-links').getBoundingClientRect()
-            const offset = linkRect.left - navRect.left + (linkRect.width / 2)
-            
-            useGsap.to(indicatorLine, {
-                x: offset - 30, // Center the indicator
-                duration: 0.5,
-                ease: "power2.out"
-            })
-        }
+    // Update indicator on scroll
+    const handleScroll = () => {
+        updateActiveIndicator()
     }
     
-    // Update indicator on route change
-    watch(() => useRoute().path, updateActiveIndicator)
+    window.addEventListener('scroll', handleScroll)
     updateActiveIndicator()
 })
 
@@ -294,12 +328,12 @@ onMounted(() => {
 }
 
 /* Active Link Styling */
-.router-link-exact-active {
+.nav-link.active {
     color: #00d4ff !important;
     text-shadow: 0 0 10px rgba(0, 212, 255, 0.8);
 }
 
-.router-link-exact-active .link-glow {
+.nav-link.active .link-glow {
     opacity: 0.3;
 }
 
@@ -329,9 +363,26 @@ onMounted(() => {
     min-height: 100vh;
     background: #0a0a0a;
     display: flex;
-    justify-content: center;
-    align-items: flex-start;
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: center;
     text-align: center;
+}
+
+#Displayed-page > div {
+    width: 100%;
+    scroll-margin-top: 80px;
+    position: relative;
+}
+
+#home {
+    position: relative;
+    z-index: 1;
+}
+
+#work-projects {
+    position: relative;
+    z-index: 1;
 }
 
 /* Responsive Design */
