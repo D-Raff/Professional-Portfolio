@@ -19,6 +19,9 @@
                             <a class="seeMore" target="_blank" :href="project.link">
                                 <button>Site</button>
                             </a>
+                            <a class="seeMore" target="_blank" :href="project.gitHub">
+                                <button>Github</button>
+                            </a>
                         </div>
                     </div>
                 </div>
