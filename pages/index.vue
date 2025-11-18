@@ -69,8 +69,6 @@ const Store = useStore()
 await Store.fetchAbout()
 let about = Store.about
 
-console.log('About data:', about)
-
 // Check if animation has already been played in this session
 const hasAnimationPlayed = ref(false)
 

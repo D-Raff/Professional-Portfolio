@@ -8,6 +8,7 @@ export const useStore = defineStore('dataStore', {
         badges: [],
         projects: [],
         about: [],
+        contact: [],
     }),
     actions: {
         // fetching all skills
@@ -44,6 +45,13 @@ export const useStore = defineStore('dataStore', {
             let Data = await result.json()                        
             
             this.about = Data.about  
+        },
+        //fetching my contact info
+        async fetchContact(){
+            const result = await fetch(dataUrl);
+            let Data = await result.json()                        
+            
+            this.contact = Data.Contact  
         }
 
     }
