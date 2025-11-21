@@ -18,6 +18,11 @@ export default defineNuxtConfig({
           rel: "stylesheet",
           integrity:"sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH",
           crossorigin: "anonymous"
+        },
+        {
+          rel: "preload",
+          as: "image",
+          href: "https://iili.io/Jy4RwiJ.png",
         }
       ],
       script: [

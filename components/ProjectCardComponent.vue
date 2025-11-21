@@ -19,6 +19,9 @@
                             <a class="seeMore" target="_blank" :href="project.link">
                                 <button>Site</button>
                             </a>
+                            <a class="seeMore" target="_blank" :href="project.gitHub">
+                                <button>Github</button>
+                            </a>
                         </div>
                     </div>
                 </div>
@@ -56,16 +59,19 @@ console.log('ProjectCardComponent - Projects data:', projects)
 console.log('ProjectCardComponent - Projects length:', projects.length)
 
 onMounted(() => {
-    const next = document.querySelector(".next");
-    const prev = document.querySelector(".prev");
+    const carousel = document.querySelector(".project-carousel");
+    if (!carousel) return;
+    
+    const next = carousel.querySelector(".next");
+    const prev = carousel.querySelector(".prev");
 
     if (next) {
         next.addEventListener("click", function () {
-            const items = document.querySelectorAll(".item");
-            const slide = document.querySelector(".slide");
+            const slide = carousel.querySelector(".slide");
+            const items = slide ? slide.querySelectorAll(".item") : [];
             if (slide && items.length > 0) {
-                // Hide all content first
-                const allContent = document.querySelectorAll(".content");
+                // Hide all content first - only within the carousel
+                const allContent = slide.querySelectorAll(".item .content");
                 allContent.forEach(content => {
                     content.style.display = "none";
                 });
@@ -86,11 +92,11 @@ onMounted(() => {
 
     if (prev) {
         prev.addEventListener("click", function () {
-            const items = document.querySelectorAll(".item");
-            const slide = document.querySelector(".slide");
+            const slide = carousel.querySelector(".slide");
+            const items = slide ? slide.querySelectorAll(".item") : [];
             if (slide && items.length > 0) {
-                // Hide all content first
-                const allContent = document.querySelectorAll(".content");
+                // Hide all content first - only within the carousel
+                const allContent = slide.querySelectorAll(".item .content");
                 allContent.forEach(content => {
                     content.style.display = "none";
                 });

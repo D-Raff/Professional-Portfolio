@@ -38,6 +38,8 @@ import { ref, onMounted } from 'vue'
 const Store = useStore()
 await Store.fetchWork()
 let workProjects = Store.work
+await Store.fetchProjects()
+let projects = Store.projects
 
 const jobCards = ref([])
 

@@ -12,11 +12,11 @@
                 </div>
                 
                 <div class="nav-links">
-                    <NuxtLink to="/" class="nav-link" data-text="HOME">
+                    <a href="#home" class="nav-link" data-text="HOME" @click.prevent="scrollToSection('home')">
                         <span class="link-text">HOME</span>
                         <div class="link-glow"></div>
-                    </NuxtLink>
-                    <NuxtLink to="/work-projects" class="nav-link" data-text="WORK & PROJECTS">
+                    </a>
+                    <a href="#work-projects" class="nav-link" data-text="WORK & PROJECTS" @click.prevent="scrollToSection('work-projects')">
                         <span class="link-text">WORK & PROJECTS</span>
                         <div class="link-glow"></div>
                     </NuxtLink>
@@ -31,7 +31,12 @@
             </div>
         </nav>  
         <div id="Displayed-page">
-            <NuxtPage />
+            <div id="home">
+                <IndexPage />
+            </div>
+            <div id="work-projects">
+                <WorkProjectsPage />
+            </div>
         </div>
     </div>
 </template>
@@ -74,7 +79,7 @@ onMounted(() => {
             nav.style.backdropFilter = 'blur(20px)'
             nav.style.borderBottom = 'none'
         }
-    }
+    })
     
     // Add scroll event listener
     window.addEventListener('scroll', handleScroll, { passive: true })
@@ -119,7 +124,7 @@ onMounted(() => {
         
         // Make brand logo clickable to go home
         brandLogo.addEventListener('click', () => {
-            navigateTo('/')
+            scrollToSection('home')
         })
         
         // Add cursor pointer style
@@ -179,8 +184,7 @@ onMounted(() => {
         }
     }
     
-    // Update indicator on route change
-    watch(() => useRoute().path, updateActiveIndicator)
+    window.addEventListener('scroll', handleScroll)
     updateActiveIndicator()
 })
 
@@ -333,12 +337,12 @@ onMounted(() => {
 }
 
 /* Active Link Styling */
-.router-link-exact-active {
+.nav-link.active {
     color: #00d4ff !important;
     text-shadow: 0 0 10px rgba(0, 212, 255, 0.8);
 }
 
-.router-link-exact-active .link-glow {
+.nav-link.active .link-glow {
     opacity: 0.3;
 }
 
@@ -366,9 +370,26 @@ onMounted(() => {
     min-height: 100vh;
     background: #0a0a0a;
     display: flex;
-    justify-content: center;
-    align-items: flex-start;
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: center;
     text-align: center;
+}
+
+#Displayed-page > div {
+    width: 100%;
+    scroll-margin-top: 80px;
+    position: relative;
+}
+
+#home {
+    position: relative;
+    z-index: 1;
+}
+
+#work-projects {
+    position: relative;
+    z-index: 1;
 }
 
 /* Responsive Design */
