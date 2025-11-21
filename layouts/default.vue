@@ -12,11 +12,11 @@
                 </div>
                 
                 <div class="nav-links">
-                    <a href="#home" class="nav-link" data-text="HOME" @click.prevent="scrollToSection('home')">
+                    <NuxtLink to="/" class="nav-link" data-text="HOME">
                         <span class="link-text">HOME</span>
                         <div class="link-glow"></div>
-                    </a>
-                    <a href="#work-projects" class="nav-link" data-text="WORK & PROJECTS" @click.prevent="scrollToSection('work-projects')">
+                    </NuxtLink>
+                    <NuxtLink to="/work-projects" class="nav-link" data-text="WORK & PROJECTS">
                         <span class="link-text">WORK & PROJECTS</span>
                         <div class="link-glow"></div>
                     </NuxtLink>
@@ -31,25 +31,50 @@
             </div>
         </nav>  
         <div id="Displayed-page">
-            <div id="home">
-                <IndexPage />
-            </div>
-            <div id="work-projects">
-                <WorkProjectsPage />
-            </div>
+            <NuxtPage />
         </div>
     </div>
 </template>
 
 <script setup>
-import { onUnmounted } from 'vue'
+import { onMounted, onUnmounted, watch, nextTick } from 'vue'
+
+const route = useRoute()
 
 /*===================== Navigation Animations =====================*/
 // let tl = useGsap.timeline()
 
+// Active link indicator function
+const updateActiveIndicator = () => {
+    // Use nextTick to ensure DOM is updated
+    nextTick(() => {
+        const activeLink = document.querySelector('.nav-link.router-link-exact-active')
+        const navIndicator = document.querySelector('.nav-indicator')
+        if (activeLink && navIndicator) {
+            const linkRect = activeLink.getBoundingClientRect()
+            const navRect = document.querySelector('.nav-links')?.getBoundingClientRect()
+            if (navRect) {
+                const leftOffset = linkRect.left - navRect.left
+                const linkWidth = linkRect.width
+                
+                useGsap.to(navIndicator, {
+                    left: leftOffset,
+                    width: linkWidth,
+                    duration: 0.5,
+                    ease: "power2.out"
+                })
+            }
+        }
+    })
+}
+
+// Watch for route changes to update indicator
+watch(() => route.path, () => {
+    updateActiveIndicator()
+}, { immediate: true })
+
 onMounted(() => {
     // Check if we're on the index page - if not, show navigation immediately
-    const route = useRoute()
     const nav = document.querySelector('.stark-navigation')
     
         if (route.path !== '/') {
@@ -79,7 +104,7 @@ onMounted(() => {
             nav.style.backdropFilter = 'blur(20px)'
             nav.style.borderBottom = 'none'
         }
-    })
+    }
     
     // Add scroll event listener
     window.addEventListener('scroll', handleScroll, { passive: true })
@@ -124,7 +149,7 @@ onMounted(() => {
         
         // Make brand logo clickable to go home
         brandLogo.addEventListener('click', () => {
-            scrollToSection('home')
+            navigateTo('/')
         })
         
         // Add cursor pointer style
@@ -165,26 +190,9 @@ onMounted(() => {
         
     })
     
-    // Active link indicator
-    const updateActiveIndicator = () => {
-        const activeLink = document.querySelector('.nav-link.router-link-exact-active')
-        const navIndicator = document.querySelector('.nav-indicator')
-        if (activeLink && navIndicator) {
-            const linkRect = activeLink.getBoundingClientRect()
-            const navRect = document.querySelector('.nav-links').getBoundingClientRect()
-            const leftOffset = linkRect.left - navRect.left
-            const linkWidth = linkRect.width
-            
-            useGsap.to(navIndicator, {
-                left: leftOffset,
-                width: linkWidth,
-                duration: 0.5,
-                ease: "power2.out"
-            })
-        }
-    }
-    
     window.addEventListener('scroll', handleScroll)
+    
+    // Initial update of indicator
     updateActiveIndicator()
 })
 
@@ -379,15 +387,6 @@ onMounted(() => {
 #Displayed-page > div {
     width: 100%;
     scroll-margin-top: 80px;
-    position: relative;
-}
-
-#home {
-    position: relative;
-    z-index: 1;
-}
-
-#work-projects {
     position: relative;
     z-index: 1;
 }
