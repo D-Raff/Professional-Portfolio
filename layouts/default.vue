@@ -19,11 +19,14 @@
                     <a href="#work-projects" class="nav-link" data-text="WORK & PROJECTS" @click.prevent="scrollToSection('work-projects')">
                         <span class="link-text">WORK & PROJECTS</span>
                         <div class="link-glow"></div>
-                    </a>
-                </div>
-                
-                <div class="nav-indicator">
-                    <div class="indicator-line"></div>
+                    </NuxtLink>
+                    <NuxtLink to="/Contact-me" class="nav-link" data-text="CONTACT ME">
+                        <span class="link-text">CONTACT ME</span>
+                        <div class="link-glow"></div>
+                    </NuxtLink>
+                    <div class="nav-indicator">
+                        <div class="indicator-line"></div>
+                    </div>
                 </div>
             </div>
         </nav>  
@@ -39,65 +42,56 @@
 </template>
 
 <script setup>
-import IndexPage from '~/pages/index.vue'
-import WorkProjectsPage from '~/pages/work-projects.vue'
+import { onUnmounted } from 'vue'
 
 /*===================== Navigation Animations =====================*/
 // let tl = useGsap.timeline()
 
-// Active link indicator function
-function updateActiveIndicator() {
-    // Find active link based on scroll position
-    const sections = ['home', 'work-projects']
-    let activeSection = 'home'
+onMounted(() => {
+    // Check if we're on the index page - if not, show navigation immediately
+    const route = useRoute()
+    const nav = document.querySelector('.stark-navigation')
     
-    sections.forEach(sectionId => {
-        const section = document.getElementById(sectionId)
-        if (section) {
-            const rect = section.getBoundingClientRect()
-            if (rect.top <= 200 && rect.bottom >= 200) {
-                activeSection = sectionId
-            }
+        if (route.path !== '/') {
+        if (nav) {
+            nav.style.opacity = '1'
+            nav.style.transform = 'translateY(0)'
+            nav.style.visibility = 'visible'
+            nav.style.borderBottom = 'none'
+        }
+    }
+    
+    // Scroll-based transparency for navigation
+    const handleScroll = () => {
+        if (!nav) return
+        
+        const scrollY = window.scrollY || window.pageYOffset
+        const scrollThreshold = 50 // Change this value to adjust when transparency kicks in
+        
+        if (scrollY > scrollThreshold) {
+            // Scrolled down - make transparent
+            nav.style.background = 'rgba(10, 10, 10, 0.1)'
+            nav.style.backdropFilter = 'blur(10px)'
+            nav.style.borderBottom = 'none'
+        } else {
+            // At top - make opaque/black
+            nav.style.background = 'rgba(10, 10, 10, 0.95)'
+            nav.style.backdropFilter = 'blur(20px)'
+            nav.style.borderBottom = 'none'
         }
     })
     
-    const activeLink = document.querySelector(`.nav-link[href="#${activeSection}"]`)
-    const indicatorLine = document.querySelector('.indicator-line')
+    // Add scroll event listener
+    window.addEventListener('scroll', handleScroll, { passive: true })
     
-    if (activeLink && indicatorLine) {
-        // Update active class
-        document.querySelectorAll('.nav-link').forEach(link => {
-            link.classList.remove('active')
-        })
-        activeLink.classList.add('active')
-        
-        const linkRect = activeLink.getBoundingClientRect()
-        const navRect = document.querySelector('.nav-links')?.getBoundingClientRect()
-        if (navRect) {
-            const offset = linkRect.left - navRect.left + (linkRect.width / 2)
-            
-            useGsap.to(indicatorLine, {
-                x: offset - 30, // Center the indicator
-                duration: 0.5,
-                ease: "power2.out"
-            })
-        }
-    }
-}
-
-// Function to scroll to sections smoothly
-function scrollToSection(sectionId) {
-    const section = document.getElementById(sectionId)
-    if (section) {
-        section.scrollIntoView({ behavior: 'smooth', block: 'start' })
-        // Update active link indicator after a short delay to allow scroll to complete
-        setTimeout(() => {
-            updateActiveIndicator()
-        }, 100)
-    }
-}
-
-onMounted(() => {
+    // Check initial scroll position
+    handleScroll()
+    
+    // Cleanup on unmount
+    onUnmounted(() => {
+        window.removeEventListener('scroll', handleScroll)
+    })
+    
     // Initialize navigation animations
     const navLinks = document.querySelectorAll('.nav-link')
     const brandLogo = document.querySelector('.brand-logo')
@@ -171,9 +165,23 @@ onMounted(() => {
         
     })
     
-    // Update indicator on scroll
-    const handleScroll = () => {
-        updateActiveIndicator()
+    // Active link indicator
+    const updateActiveIndicator = () => {
+        const activeLink = document.querySelector('.nav-link.router-link-exact-active')
+        const navIndicator = document.querySelector('.nav-indicator')
+        if (activeLink && navIndicator) {
+            const linkRect = activeLink.getBoundingClientRect()
+            const navRect = document.querySelector('.nav-links').getBoundingClientRect()
+            const leftOffset = linkRect.left - navRect.left
+            const linkWidth = linkRect.width
+            
+            useGsap.to(navIndicator, {
+                left: leftOffset,
+                width: linkWidth,
+                duration: 0.5,
+                ease: "power2.out"
+            })
+        }
     }
     
     window.addEventListener('scroll', handleScroll)
@@ -207,7 +215,7 @@ onMounted(() => {
     padding: 0 2rem;
     opacity: 0;
     transform: translateY(-100%);
-    transition: all 0.8s ease;
+    transition: all 0.8s ease, background 0.3s ease, backdrop-filter 0.3s ease, border-bottom 0.3s ease;
     visibility: hidden;
 }
 
@@ -215,7 +223,7 @@ onMounted(() => {
     opacity: 1;
     transform: translateY(0);
     visibility: visible;
-    border-bottom: 1px solid rgba(52, 97, 232, 0.3);
+    border-bottom: none;
 }
 
 .nav-container {
@@ -278,6 +286,7 @@ onMounted(() => {
     align-items: center;
     gap: 3rem;
     position: relative;
+    padding-bottom: 2px;
 }
 
 .nav-link {
@@ -340,17 +349,15 @@ onMounted(() => {
 /* Active Indicator */
 .nav-indicator {
     position: absolute;
-    bottom: -1px;
+    bottom: 0;
     left: 0;
     height: 2px;
-    background: linear-gradient(90deg, #00d4ff, #3461e8);
-    border-radius: 1px;
-    box-shadow: 0 0 10px rgba(0, 212, 255, 0.6);
+    width: 0;
     transition: all 0.5s ease;
 }
 
 .indicator-line {
-    width: 60px;
+    width: 100%;
     height: 100%;
     background: linear-gradient(90deg, #00d4ff, #3461e8);
     border-radius: 1px;
