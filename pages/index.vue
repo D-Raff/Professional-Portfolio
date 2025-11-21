@@ -132,7 +132,7 @@ function Carousel() {
 }
 function Img_Animation(){
   // Skill images animation
-  useGsap.to(".skill-img", {
+  const skillImgTween = useGsap.to(".skill-img", {
     y: 0,
     opacity: 1,
     stagger: 0.2,
@@ -146,6 +146,11 @@ function Img_Animation(){
       toggleActions: "restart reverse restart reverse",
     }
   })
+  
+  // Store ScrollTrigger instance for cleanup and refresh
+  if (skillImgTween.scrollTrigger) {
+    scrollTriggers.push(skillImgTween.scrollTrigger)
+  }
 }
 function underline() {
   try {
@@ -176,7 +181,6 @@ function underline() {
         start: "top 60%",
         end: "top 15%",
         toggleActions: "restart reverse restart reverse",
-        markers: true,
       }
     })
 
@@ -219,6 +223,8 @@ function hover_badge() {
 // Reset animation state when component is unmounted
 onUnmounted(() => {
   resetAnimationState()
+  // Clean up scroll prevention event listeners
+  enableScrolling()
 })
 
 // Check sessionStorage on component mount
@@ -231,16 +237,21 @@ onMounted(() => {
   if (!animationPlayed) {
     // First time loading - play the full animation sequence
     hasAnimationPlayed.value = false
+    // Prevent scrolling until equip button is clicked
+    preventScrolling()
     playInitialAnimations()
+    // ScrollTriggers will be created after equip animation completes
   } else {
     // Animation already played - skip to main content
     hasAnimationPlayed.value = true
     skipToMainContent()
+    // Enable scrolling since animation was already played
+    enableScrolling()
+    // Note: initializeScrollTriggers() is called in skipToMainContent()
   }
   hover_badge()
-  underline()
   Carousel()
-  Img_Animation()
+  // Note: underline() and Img_Animation() are now called in initializeScrollTriggers()
 })
 
 function resetAnimationState() {
@@ -324,6 +335,12 @@ function skipToMainContent() {
   openDivs.forEach(div => {
     div.style.display = "none"
   })
+  
+  // Initialize ScrollTriggers after layout is set
+  // Wait a bit longer since we're skipping animation
+  setTimeout(() => {
+    initializeScrollTriggers()
+  }, 300)
 
   // Show navigation immediately
   useGsap.to(".stark-navigation", {
@@ -384,10 +401,72 @@ if (process.client) {
   window.resetAnimation = resetAnimation
 }
 
+// Prevent scrolling
+function preventScrolling() {
+  // Prevent scroll on body and html
+  document.body.style.overflow = 'hidden'
+  document.documentElement.style.overflow = 'hidden'
+  
+  // Also prevent scroll with touch events (mobile)
+  document.addEventListener('touchmove', preventDefault, { passive: false })
+  document.addEventListener('wheel', preventDefault, { passive: false })
+  document.addEventListener('scroll', preventDefault, { passive: false })
+}
+
+// Enable scrolling
+function enableScrolling() {
+  // Re-enable scroll on body and html
+  document.body.style.overflow = ''
+  document.documentElement.style.overflow = ''
+  
+  // Remove scroll prevention event listeners
+  document.removeEventListener('touchmove', preventDefault)
+  document.removeEventListener('wheel', preventDefault)
+  document.removeEventListener('scroll', preventDefault)
+}
+
+// Prevent default for scroll events
+function preventDefault(e) {
+  e.preventDefault()
+}
+
+// Initialize ScrollTriggers after layout is finalized
+function initializeScrollTriggers() {
+  // Wait a bit to ensure layout is stable
+  setTimeout(() => {
+    const carouselWrapper = document.querySelector(".carousel-wrapper")
+    if (!carouselWrapper) {
+      console.warn('Carousel wrapper not found, retrying...')
+      setTimeout(initializeScrollTriggers, 200)
+      return
+    }
+    
+    // Check if carousel has dimensions
+    if (carouselWrapper.offsetWidth === 0 || carouselWrapper.offsetHeight === 0) {
+      console.warn('Carousel has no dimensions, retrying...')
+      setTimeout(initializeScrollTriggers, 200)
+      return
+    }
+    
+    // Now create ScrollTriggers
+    underline()
+    Img_Animation()
+    
+    // Refresh ScrollTrigger to ensure proper initialization
+    const { ScrollTrigger } = useGsap
+    if (ScrollTrigger && ScrollTrigger.refresh) {
+      ScrollTrigger.refresh()
+    }
+  }, 100)
+}
+
 // Equip animation
 function equip() {
   // Mark animation as played in session storage
   sessionStorage.setItem('mainAnimationPlayed', 'true')
+  
+  // Enable scrolling when equip button is clicked
+  enableScrolling()
 
   document.querySelector(".right-a").classList.add("equip-ra");
   document.querySelector(".left-a").classList.add("equip-la");
@@ -406,6 +485,11 @@ function equip() {
     duration: 1,
     y: 0,
     delay: 2.4,
+    onComplete: () => {
+      // Initialize ScrollTriggers after Main div animation completes
+      // This ensures ScrollTriggers are created with correct positions
+      initializeScrollTriggers()
+    }
   });
   useGsap.to(".spin", {
     height: '49px',
@@ -1095,7 +1179,6 @@ h2 {
   overflow: hidden;
   width: 100vw;
   height: 15rem;
-  border: 1px solid red;
 }
 
 .skill-carousel {

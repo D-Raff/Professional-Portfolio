@@ -179,6 +179,49 @@ onMounted(async () => {
                 if (ScrollTrigger && ScrollTrigger.refresh) {
                     ScrollTrigger.refresh()
                 }
+                
+                // Listen for custom refresh event (triggered when Main div animation completes)
+                const handleRefreshEvent = () => {
+                    if (ScrollTrigger && ScrollTrigger.refresh) {
+                        // Force a more aggressive refresh
+                        // First, scroll to top to ensure accurate calculations
+                        const currentScroll = window.scrollY || window.pageYOffset
+                        window.scrollTo(0, 0)
+                        
+                        requestAnimationFrame(() => {
+                            // Force layout recalculation
+                            if (carouselWrapper) {
+                                carouselWrapper.offsetHeight
+                                carouselWrapper.getBoundingClientRect()
+                            }
+                            
+                            // Refresh all ScrollTriggers
+                            ScrollTrigger.refresh()
+                            
+                            // Also refresh individual instances
+                            scrollTriggers.forEach(st => {
+                                if (st && st.refresh) {
+                                    st.refresh()
+                                }
+                            })
+                            
+                            // Update ScrollTrigger
+                            ScrollTrigger.update()
+                            
+                            // Scroll back to original position
+                            window.scrollTo(0, currentScroll)
+                            
+                            // Final update
+                            requestAnimationFrame(() => {
+                                ScrollTrigger.update()
+                            })
+                        })
+                    }
+                }
+                window.addEventListener('scrolltrigger-refresh', handleRefreshEvent)
+                
+                // Store handler for cleanup
+                scrollTriggers.refreshHandler = handleRefreshEvent
             }
         } catch (error) {
             console.error('SkillsComponent: Error initializing animations:', error)
@@ -198,6 +241,12 @@ onUnmounted(() => {
             }
         })
         scrollTriggers = []
+        
+        // Remove refresh event listener
+        if (scrollTriggers.refreshHandler) {
+            window.removeEventListener('scrolltrigger-refresh', scrollTriggers.refreshHandler)
+        }
+        
         if (ScrollTrigger && ScrollTrigger.refresh) {
             ScrollTrigger.refresh()
         }

@@ -1,17 +1,17 @@
 <template>
     <div class="reactor-container">
         <div class="jarv-container">
-                <div class="stat circ"></div>
-                <div class="outerm circ"></div>
-                <div class="out circ"></div>
-                <div class="mid circ"></div>
-                <div class="mid2 circ"></div>
-                <div class="mid3 circ"></div>
-                <div class="in circ"></div>
-                <div class="inmost3 circ"></div>
-                <div class="inmost2 circ"></div>
-                <div class="inmost circ"></div>
-            </div>
+            <div class="stat circ"></div>
+            <div class="outerm circ"></div>
+            <div class="out circ"></div>
+            <div class="mid circ"></div>
+            <div class="mid2 circ"></div>
+            <div class="mid3 circ"></div>
+            <div class="in circ"></div>
+            <div class="inmost3 circ"></div>
+            <div class="inmost2 circ"></div>
+            <div class="inmost circ"></div>
+        </div>
     </div>
 </template>
 
@@ -20,8 +20,8 @@
 
 <style scoped>
 .reactor-container {
-    min-height: fit-content;
-    width: fit-content;
+    height: 100vh;
+    width: 100vw;
     display: flex;
     flex-wrap: wrap;
     flex-direction: column;
@@ -30,9 +30,11 @@
 }
 
 .jarv-container {
-    position: absolute;
+    position: fixed;
     height: 100%;
     width: 100%;
+    top: 0;
+    left: 0;
     background: black;
     display: flex;
     justify-content: center;

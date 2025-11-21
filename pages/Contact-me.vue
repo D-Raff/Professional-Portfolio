@@ -1,5 +1,6 @@
 <template>
   <div id="Contact-me">
+    <Reactor class="reactor"/>
     <h1 class="contact-title">Let's Connect</h1>
     
     <div class="contact-section">
@@ -132,9 +133,8 @@ const handleSubmit = async (event) => {
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  padding-top: 100px;
-  padding-bottom: 50px;
-  gap: 3rem;
+  padding-top: 80px;
+  padding-bottom: 30px;
 }
 
 .contact-title {
@@ -156,7 +156,9 @@ const handleSubmit = async (event) => {
   display: flex;
   flex-direction: column;
   gap: 1.5rem;
-  background: rgba(10, 10, 10, 0.8);
+  background: rgba(10, 10, 10, 0.6);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
   padding: 2rem;
   border-radius: 10px;
   border: 1px solid rgba(52, 97, 232, 0.3);
@@ -166,7 +168,6 @@ const handleSubmit = async (event) => {
 .form-group {
   display: flex;
   flex-direction: column;
-  gap: 0.5rem;
 }
 
 .form-group label {
@@ -261,6 +262,11 @@ const handleSubmit = async (event) => {
   padding: 2rem;
 }
 
+:is(.Contact-links, .contact-section, .contact-title) {
+  position: relative;
+  z-index: 1;
+}
+
 .Contact {
   width: 100%;
   min-height: 100%;
@@ -274,9 +280,6 @@ const handleSubmit = async (event) => {
   width: 300px;
   height: 300px;
   position: relative;
-  transform:
-    rotateX(51deg) rotateZ(43deg);
-  transform-style: preserve-3d;
   border-radius: 32px;
   box-shadow:
     1px 1px 0 1px #f9f9fb,
@@ -285,15 +288,6 @@ const handleSubmit = async (event) => {
   transition:
     .4s ease-in-out transform,
     .4s ease-in-out box-shadow;
-
-  &:hover {
-    transform:
-      translate3d(0px, -16px, 0px) rotateX(51deg) rotateZ(43deg);
-    box-shadow:
-      1px 1px 0 1px #f9f9fb,
-      -1px 0 28px 0 rgba(103, 199, 235, 0.01),
-      54px 54px 28px -10px rgba(103, 199, 235, 0.15);
-  }
 }
 
 .contact-link {
@@ -311,8 +305,12 @@ img[alt="contact-icon"] {
   object-position: center;
   transform: scale(1.35);
   /* Adjust this value: 1.0 = normal, 1.5 = 50% larger, 0.8 = 20% smaller */
-  rotate: -90deg;
   display: block;
   cursor: pointer;
+}
+
+.reactor {
+  position: absolute;
+  z-index: 0;
 }
 </style>
