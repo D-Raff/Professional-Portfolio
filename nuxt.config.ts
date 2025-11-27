@@ -1,6 +1,9 @@
 export default defineNuxtConfig({
   devtools: { enabled: true },
   modules: ['@hypernym/nuxt-gsap', '@pinia/nuxt'],
+  nitro: {
+    preset: 'netlify'
+  },
   gsap: {
     composables: true,
     provide: false,
