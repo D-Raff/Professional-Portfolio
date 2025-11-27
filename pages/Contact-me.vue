@@ -62,14 +62,6 @@
         </div>
       </form>
     </div>
-    
-    <div class="Contact-links">
-      <div v-for="item in contact" :key="item.id" class="contact-item">
-        <a :href="item.link" target="_blank" rel="noopener noreferrer" class="contact-link">
-          <img :src="item.logo" alt="contact-icon" class="contact-icon">
-        </a>
-      </div>
-    </div>
   </div>
 </template>
 
@@ -251,17 +243,6 @@ const handleSubmit = async (event) => {
   color: #ff4444;
 }
 
-.Contact-links {
-  width: 100%;
-  max-width: 800px;
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-  gap: 2rem;
-  justify-content: center;
-  align-items: center;
-  padding: 2rem;
-}
-
 :is(.Contact-links, .contact-section, .contact-title) {
   position: relative;
   z-index: 1;
@@ -273,40 +254,6 @@ const handleSubmit = async (event) => {
   display: flex;
   justify-content: center;
   align-items: center;
-}
-
-.contact-item {
-  overflow: hidden;
-  width: 300px;
-  height: 300px;
-  position: relative;
-  border-radius: 32px;
-  box-shadow:
-    1px 1px 0 1px #f9f9fb,
-    -1px 0 28px 0 rgba(103, 199, 235, 0.01),
-    28px 28px 28px 0 rgba(103, 199, 235, 0.25);
-  transition:
-    .4s ease-in-out transform,
-    .4s ease-in-out box-shadow;
-}
-
-.contact-link {
-  display: block;
-  width: 100%;
-  height: 100%;
-  text-decoration: none;
-}
-
-img[alt="contact-icon"] {
-  background: white;
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-  object-position: center;
-  transform: scale(1.35);
-  /* Adjust this value: 1.0 = normal, 1.5 = 50% larger, 0.8 = 20% smaller */
-  display: block;
-  cursor: pointer;
 }
 
 .reactor {

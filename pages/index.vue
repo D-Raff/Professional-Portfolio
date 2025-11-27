@@ -48,16 +48,9 @@
               <h2 class="name-head">Damon Raffels</h2>
               <div class="underline"></div>
               <p class="pers-info">
-                A versatile developer skilled in both mechanics and fullstack web
-                development, with a certificate from Life Choices Coding Academy.
-                Proficient in HTML, CSS, Bootstrap, JavaScript, Vue.js, Node.js,
-                and MySQL, complemented by badges in Scrum, Cisco Networking, and
-                Python Essentials. Past roles provided experience in engine
-                rebuilding, overhauling, and inventory management, along with
-                strong communication and conflict resolution skills.
+                {{ aboutText }}
               </p>
             </div>
-            <p>Hobbies include hiking, gaming, sketching, and coding.</p>
           </div>
         </div>
 
@@ -105,11 +98,29 @@
 </template>
 
 <script setup>
-import { ref, nextTick, onMounted, onUnmounted } from 'vue'
+import { ref, nextTick, onMounted, onUnmounted, computed } from 'vue'
 
 const Store = useStore()
 await Store.fetchAbout()
-let about = Store.about
+
+// Format about data for display - reference Store.about directly for reactivity
+const aboutText = computed(() => {
+  const about = Store.about
+  if (!about) return ''
+  if (Array.isArray(about)) {
+    // If it's an array of objects with a text property
+    if (about[0] && typeof about[0] === 'object' && about[0].text) {
+      return about[0].text
+    }
+    // If it's an array of strings, join them
+    if (typeof about[0] === 'string') {
+      return about.join(' ')
+    }
+    // Otherwise return first element
+    return about[0]
+  }
+  return about
+})
 await Store.fetchSkills()
 let skills = Store.skills
 await Store.fetchBadges()
