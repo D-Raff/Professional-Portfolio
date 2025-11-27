@@ -7,12 +7,15 @@
     "dev": "nuxt dev",
     "generate": "nuxt generate",
     "preview": "nuxt preview",
-    "postinstall": "nuxt prepare"
+    "postinstall": "nuxt prepare",
+    "firebase": "firebase",
+    "deploy": "npm run generate && firebase deploy --only hosting"
   },
   "dependencies": {
     "@pinia/nuxt": "^0.5.5",
     "bootstrap": "^5.3.3",
     "dotenv": "^16.4.7",
+    "firebase": "^12.6.0",
     "gsap": "^3.12.5",
     "nuxt": "^3.11.2",
     "pinia": "^2.2.4",
@@ -20,6 +23,7 @@
     "vue-router": "^4.3.2"
   },
   "devDependencies": {
-    "@hypernym/nuxt-gsap": "^2.4.2"
+    "@hypernym/nuxt-gsap": "^2.4.2",
+    "firebase-tools": "^14.26.0"
   }
 }
